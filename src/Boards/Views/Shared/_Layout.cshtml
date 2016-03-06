@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+
+<html>
+@Html.Partial("_Head")
+<body>
+    <div id="page-container">
+        @Html.Partial("_Header")
+        <div class="wrap">
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Partial("_Footer")
+</body>
+</html>
