@@ -1,0 +1,24 @@
+﻿// Library Imports
+@import "lib/bourbon/bourbon";
+@import "lib/neat/neat";
+
+
+// Global Imports
+@import "global/_colors.scss";
+@import "global/_fonts.scss";
+@import "global/_typography.scss";
+@import "global/_mixins.scss";
+
+
+//Partial Imports
+
+
+// Global Styles
+body {
+    font-family: sans-serif;
+}
+
+.wrap {
+    @include outer-container;
+    @include padding(0px 20px);
+}
