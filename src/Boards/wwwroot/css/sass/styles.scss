@@ -6,7 +6,6 @@
 // Global Imports
 @import "global/_colors.scss";
 @import "global/_fonts.scss";
-@import "global/_typography.scss";
 @import "global/_mixins.scss";
 
 
@@ -15,10 +14,49 @@
 
 // Global Styles
 body {
-    font-family: sans-serif;
+    background-color:$color-shuttle-gray;
+    color: $color-alto;
+    font-family: $font-poppins;
+}
+
+h1 {
+    color: $color-seagull;
+    font-size: 52px;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+p {
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 0 0 45px;
+}
+
+a {
+    color: $color-seagull;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .wrap {
     @include outer-container;
-    @include padding(0px 20px);
+
+    padding: {
+        left: 20px;
+        right: 20px;
+    }
+
+    &.narrow {
+        padding: {
+            left: 128px;
+            right: 128px;
+        }
+    }
+}
+
+.gencon {
+    max-width: 848px;
 }
