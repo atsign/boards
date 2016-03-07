@@ -1,0 +1,52 @@
+﻿@import "colors";
+@import "fonts";
+@import "mixins";
+
+body {
+    background-color:$color-shuttle-gray;
+    color: $color-alto;
+    font-family: $font-poppins;
+}
+
+h1 {
+    color: $color-seagull;
+    font-size: 52px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0 0 20px;
+}
+
+p {
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 0 0 45px;
+}
+
+a {
+    color: $color-seagull;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.wrap {
+    @include outer-container;
+
+    padding: {
+        left: 20px;
+        right: 20px;
+    }
+
+    &.narrow {
+        padding: {
+            left: 128px;
+            right: 128px;
+        }
+    }
+}
+
+.gencon {
+    @include span-columns(8 of 10);
+}
