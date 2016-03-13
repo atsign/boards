@@ -42,12 +42,18 @@
         text-decoration: none;
     }
 
-    li:first-child {
+   & > li:first-child {
         margin-right: 60px;
     }
 }
 
+#menu-trigger-container {
+    position: relative;
+}
+
 #menu-trigger {
+    position: relative;
+    z-index: 1;
 
     &:hover {
         color: $color-seagull;
@@ -58,8 +64,38 @@
         @include position(relative, -5px null null null);
         font-size: 22px;
     }
+
+    .active & {
+        color: $color-te-papa-green;
+
+        &:hover {
+            color: $color-white;
+        }
+    }
 }
 
 #sub-nav {
+    @include list-reset;
+    @include position(absolute, 0px -10px null null);
     display: none;
+    background-color: $color-seagull;
+    padding-top: 53px;
+    width: 257px;
+
+    a {
+        color: $color-te-papa-green;
+        display: block;
+        line-height: 1;
+        padding: 12px;
+        width: 100%;
+
+        &:hover {
+            background-color: $color-te-papa-green;
+            color: $color-seagull;
+        }
+    }
+
+    .active & {
+        display: block;
+    }
 }
