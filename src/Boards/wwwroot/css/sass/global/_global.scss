@@ -6,6 +6,7 @@ body {
     background-color:$color-shuttle-gray;
     color: $color-alto;
     font-family: $font-poppins;
+    margin: 0;
 }
 
 h1 {
@@ -29,6 +30,11 @@ a {
     &:hover {
         text-decoration: underline;
     }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .wrap {
