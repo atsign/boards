@@ -1,0 +1,19 @@
+﻿#page-footer {
+    background-color: $color-te-papa-green;
+    height: 70px;
+    text-align: center;
+
+    p {
+        font-size: 17px;
+        font-weight: 500;
+        margin: 0;
+        padding-top: 27px;
+    }
+
+    a {
+        text-decoration: underline;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

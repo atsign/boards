@@ -15,3 +15,24 @@
         display: inline-block;
     }
 }
+
+@mixin sticky-footer($footerHeight, $pageWrapSelector, $footerSelector) {
+    body, html {
+        height: 100%;
+    }
+
+    #{$pageWrapSelector} {
+        min-height: 100%;
+        margin-bottom: -$footerHeight;
+
+        &:after {
+            content: ' ';
+            display: block;
+        }
+    }
+
+    #{$footerSelector},
+    #{$pageWrapSelector}:after {
+        height: $footerHeight;
+    }
+}
