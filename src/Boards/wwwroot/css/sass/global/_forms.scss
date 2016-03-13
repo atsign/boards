@@ -1,0 +1,32 @@
+﻿form {
+    @include span-columns(3 of 8);
+    margin: 0 0 60px;
+    padding: 0;
+}
+
+label, input {
+    display: block;
+    width: 100%;
+}
+
+label {
+    color: $color-seagull;
+    font-size: 23px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+#{$all-text-inputs},
+textarea {
+    background-color: $color-alto;
+    border: none;
+    color: $color-shark;
+    font: 500 35px $font-poppins;
+    line-height: 1;
+    margin-bottom: 24px;
+    padding: 0 10px;
+}
+
+input + button {
+    margin-top: 38px;
+}

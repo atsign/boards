@@ -1,6 +1,7 @@
 ﻿@import "colors";
 @import "fonts";
 @import "mixins";
+@import "forms";
 
 body {
     background-color:$color-shuttle-gray;
@@ -56,6 +57,23 @@ img {
 
 .gencon {
     @include span-columns(8 of 10);
+}
+
+button,
+.cta-button {
+    background-color: $color-fountain-blue;
+    border: none;
+    color: $color-te-papa-green;
+    cursor: pointer;
+    display: block;
+    font: 500 35px $font-poppins;
+    text-transform: uppercase;
+    width: 100%;
+
+    &:hover {
+        background-color: $color-te-papa-green;
+        color: $color-fountain-blue;
+    }
 }
 
 @include sticky-footer(70px, #page-container, #page-footer);
