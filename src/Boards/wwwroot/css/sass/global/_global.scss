@@ -76,4 +76,8 @@ button,
     }
 }
 
+#page-container {
+    padding-bottom: 60px;
+}
+
 @include sticky-footer(70px, #page-container, #page-footer);

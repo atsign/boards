@@ -1,0 +1,57 @@
+#list-pane {
+    background-color: $color-outer-space;
+    padding: 18px 16px 48px 16px;
+    position: relative;
+
+    h2 {
+        font-size: 36px;
+        font-weight: 500;
+        margin: 0 0 22px;
+    }
+
+    button {
+        @include position(absolute, 18px 16px null null);
+        display: inline-block;
+        font-size: 28px;
+        line-height: 1;
+        padding: 16px 8px 12px 8px;
+        width: auto;
+    }
+
+    ul {
+        @include list-reset;
+    }
+
+    li {
+        font-size: 32px;
+        font-weight: 300;
+    }
+
+    a {
+        color: $color-alto;
+        margin-right: 16px;
+        text-decoration: underline;
+    }
+
+    li:hover a {
+        color: $color-seagull;
+    }
+
+    .controls {
+        @include position(relative, 4px null null null);
+        display: none;
+
+        i {
+            color: $color-rolling-stone;
+            cursor: pointer;
+        }
+
+        i:hover {
+            color: $color-flamingo;
+        }
+    }
+
+    li:hover .controls {
+        display: inline-block;
+    }
+}

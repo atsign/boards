@@ -17,5 +17,10 @@ namespace Boards.Controllers.Web
         {
             return View();
         }
+
+        public IActionResult Boards()
+        {
+            return View();
+        }
     }
 }
