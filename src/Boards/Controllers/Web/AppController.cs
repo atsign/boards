@@ -22,5 +22,10 @@ namespace Boards.Controllers.Web
         {
             return View();
         }
+
+        public IActionResult Categories()
+        {
+            return View();
+        }
     }
 }

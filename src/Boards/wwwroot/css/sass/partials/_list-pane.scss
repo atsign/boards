@@ -1,6 +1,6 @@
 #list-pane {
     background-color: $color-outer-space;
-    padding: 18px 16px 48px 16px;
+    padding: 18px 310px 48px 16px;
     position: relative;
 
     h2 {
@@ -16,6 +16,7 @@
         line-height: 1;
         padding: 16px 8px 12px 8px;
         width: auto;
+        z-index: 10;
     }
 
     ul {
@@ -25,6 +26,27 @@
     li {
         font-size: 32px;
         font-weight: 300;
+
+        &.category {
+            padding-left: 18px;
+            position: relative;
+        }
+
+        &.category:before {
+            @include position(absolute, 15px null null 0px);
+            @include size(10px 24px);
+            content: "";
+            display: block;
+        }
+
+        &.category.category-1:before { background-color: $color-category-1; }
+        &.category.category-2:before { background-color: $color-category-2; }
+        &.category.category-3:before { background-color: $color-category-3; }
+        &.category.category-4:before { background-color: $color-category-4; }
+        &.category.category-5:before { background-color: $color-category-5; }
+        &.category.category-6:before { background-color: $color-category-6; }
+        &.category.category-7:before { background-color: $color-category-7; }
+        &.category.category-8:before { background-color: $color-category-8; }
     }
 
     a {
@@ -38,7 +60,7 @@
     }
 
     .controls {
-        @include position(relative, 4px null null null);
+        @include position(relative, 2px null null null);
         display: none;
 
         i {
@@ -53,5 +75,65 @@
 
     li:hover .controls {
         display: inline-block;
+    }
+}
+
+#category-color-picker {
+    @include clearfix;
+    background-color: $color-alto;
+    padding: 6px 6px 0 6px;
+    margin-bottom: 32px;
+    width: 310px;
+
+    .color {
+        @include size(70px);
+        cursor: pointer;
+        float: left;
+        margin: 0 6px 6px 0;
+        position: relative;
+
+        &:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        &:nth-child(4n + 1) {
+            clear: left;
+        }
+
+        &.color-1 { background-color: $color-category-1; }
+        &.color-2 { background-color: $color-category-2; }
+        &.color-3 { background-color: $color-category-3; }
+        &.color-4 { background-color: $color-category-4; }
+        &.color-5 { background-color: $color-category-5; }
+        &.color-6 { background-color: $color-category-6; }
+        &.color-7 { background-color: $color-category-7; }
+        &.color-8 { background-color: $color-category-8; }
+
+        i {
+            @include position(absolute, 50% null null 50%);
+            color: $color-shark;
+            display: none;
+            margin: 0 0 0 0;
+            font-size: 30px;
+        }
+
+        &.selected i,
+        &:hover i {
+            display: inline-block;
+        }
+    }
+}
+
+#categories-list-page {
+    position: relative;
+
+    .back {
+        @include position(absolute, 0px 0px null null);
+        color: $color-alto;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-seagull;
+        }
     }
 }
