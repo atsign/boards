@@ -7,7 +7,7 @@
         <h1>Hello, Pockets</h1>
         <div id="list-pane">
             <h2>My Boards</h2>
-            <button><i class="fa fa-plus"></i> New Board</button>
+            <button onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i> New Board</button>
             <ul>
                 <li>
                     <a href="#">Reporting System</a>
@@ -35,6 +35,18 @@
                 </li>
             </ul>
         </div>
+    </div>
+</div>
+
+<div id="modal" style="display: none;">
+    <div id="modal-content">
+        <button id="modal-close" onclick="$('#modal').css('display', 'none');"><i class="fa fa-times"></i></button>
+        <h2>Add a Board</h2>
+        <label for="board-name-input">Name</label>
+        <input type="text" value="" id="board-name-input" name="board-name-input" />
+        <label for="board-description-textarea">Description</label>
+        <textarea name="board-description-textarea" id="board-description-textarea"></textarea>
+        <button>Save</button>
     </div>
 </div>
 

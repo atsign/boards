@@ -1,0 +1,36 @@
+#modal {
+    @include position(fixed, 0px null null 0px);
+    @include size(100%);
+    background-color: rgba($color-shark, 0.83);
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+}
+
+#modal-content {
+    align-self: center;
+    background-color: $color-abbey;
+    padding: 26px 21px 50px 21px;
+    position: relative;
+    width: 512px;
+
+    h2 {
+        color: $color-seagull;
+        font-size: 52px;
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+#modal-close {
+    @include position(absolute, 10px 18px null null);
+    background-color: transparent;
+    color: $color-alto;
+    display: inline-block;
+    opacity: 0.33;
+    width: auto;
+
+    &:hover {
+        opacity: 1;
+    }
+}
