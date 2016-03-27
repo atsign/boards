@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Reporting System Board";
+}
+
+<div class="wrap">
+    <div id="board-info">
+        <h1>Reporting System Board</h1>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+    <div id="board-controls">
+        <button onclick="$('#modal').css('display', 'flex');" class="new-item"><i class="fa fa-plus"></i> New Item</button>
+        <a href="/categories" class="cta-button categories">Categories</a>
+    </div>
+    <div id="board">
+        <button class="add-phase" onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i></button>
+        <div class="phase">
+            <h2>
+                Backlog
+                <span class="controls">
+                    <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+                </span>
+            </h2>
+            <div class="items">
+                <div class="item category-1">Et praesent minim et nulla tempor</div>
+                <div class="item category-2">Diam accumsan ut ut duis</div>
+            </div>
+        </div>
+        <div class="phase">
+            <h2>
+                In Progress
+                <span class="controls">
+                    <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+                </span>
+            </h2>
+            <div class="items">
+                <div class="item category-3">Laoreet eleifend duo eirmod dolores hendrerit</div>
+                <div class="item category-4">Ipsum et nulla diam rebum</div>
+            </div>
+        </div>
+        <div class="phase">
+            <h2>
+                Under Review
+                <span class="controls">
+                    <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+                </span>
+            </h2>
+            <div class="items">
+                <div class="item category-5">Consequat no est sanctus gubergren</div>
+                <div class="item category-6">Sed sea sit nisl nonummy feugiat</div>
+                <div class="item category-7">Amet et stet ipsum</div>
+            </div>
+        </div>
+        <div class="phase">
+            <h2>
+                Done
+                <span class="controls">
+                    <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+                </span>
+            </h2>
+            <div class="items">
+                <div class="item category-8">Dolor diam lorem aliquyam aliquam sit labore</div>
+                <div class="item category-3">Est accusam esse consetetur dolore</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal" style="display: none;">
+    <div id="modal-content">
+        <button id="modal-close" onclick="$('#modal').css('display', 'none');"><i class="fa fa-times"></i></button>
+        <h2>Add a Task</h2>
+        <label for="task-name-input">Name</label>
+        <input type="text" value="" id="task-name-input" name="task-name-input" />
+        <label for="task-description-textarea">Description</label>
+        <textarea name="task-description-textarea" id="task-description-textarea"></textarea>
+        <label for="task-category-select">Category</label>
+        <select id="task-category-select" name="task-category-select">
+            <option>UX Task</option>
+            <option>Front-End Development Task</option>
+            <option>Back-End Bug Fix</option>
+            <option>Deployment Task</option>
+        </select>
+        <label for="phase-select">Phase</label>
+        <select id="phase-select" name="phase-select">
+            <option>Backlog</option>
+            <option>In Progress</option>
+            <option>Under Review</option>
+            <option>Done</option>
+        </select>
+        <button>Save</button>
+    </div>
+</div>

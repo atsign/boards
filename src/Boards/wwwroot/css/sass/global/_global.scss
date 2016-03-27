@@ -74,6 +74,14 @@ button,
     &:hover {
         background-color: $color-te-papa-green;
         color: $color-fountain-blue;
+        text-decoration: none;
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+        background-color: $color-rolling-stone;
+        color: $color-alto;
+        cursor: default;
     }
 }
 

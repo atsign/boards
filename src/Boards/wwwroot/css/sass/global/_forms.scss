@@ -36,6 +36,21 @@ textarea {
     padding: 10px;
 }
 
-input + button {
+input + button,
+select + button {
     margin-top: 38px;
+}
+
+select {
+    background-color: $color-alto;
+    display: block;
+    font-size: 35px;
+    font-weight: 500;
+    font-family: $font-poppins;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+option {
+    font-size: 26px;
 }
