@@ -17,6 +17,11 @@ namespace Boards.Models
             _logger = logger;
         }
 
+        public void AddBoard(Board newBoard)
+        {
+            _context.Add(newBoard);
+        }
+
         public IEnumerable<Board> GetAllBoards()
         {
             try
@@ -28,6 +33,11 @@ namespace Boards.Models
                 _logger.LogError("Unable to retrieve boards from database", ex);
                 return null;
             }
+        }
+
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 0;
         }
     }
 }
