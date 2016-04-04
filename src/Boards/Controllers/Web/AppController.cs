@@ -9,12 +9,13 @@ namespace Boards.Controllers.Web
 {
     public class AppController : Controller
     {
-        private BoardsContext _context;
+        private IBoardsRepository _repository;
 
-        public AppController(Models.BoardsContext context)
+        public AppController(IBoardsRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -27,7 +28,7 @@ namespace Boards.Controllers.Web
 
         public IActionResult Boards()
         {
-            var boards = _context.Boards.OrderBy(t => t.Name).ToList();
+            var boards = _repository.GetAllBoards();
 
             return View(boards);
         }

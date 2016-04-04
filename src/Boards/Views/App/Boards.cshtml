@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Boards.Models.Board>
+@{
     ViewBag.Title = "Pockets's Boards";
 }
 
@@ -9,30 +10,15 @@
             <h2>My Boards</h2>
             <button onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i> New Board</button>
             <ul>
-                <li>
-                    <a href="/board">Reporting System</a>
-                    <span class="controls">
-                        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li>
-                    <a href="/board">Company Intranet</a>
-                    <span class="controls">
-                        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li>
-                    <a href="/board">Marketing Microsite</a>
-                    <span class="controls">
-                        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li>
-                    <a href="/board">Warehouse Logistics App</a>
-                    <span class="controls">
-                        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
+                @foreach (var board in Model)
+                {
+                    <li>
+                        <a href="/board">@board.Name</a>
+                        <span class="controls">
+                            <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+                        </span>
+                    </li>
+                }
             </ul>
         </div>
     </div>
