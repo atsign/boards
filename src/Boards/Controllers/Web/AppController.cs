@@ -3,11 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Boards.Models;
 
 namespace Boards.Controllers.Web
 {
     public class AppController : Controller
     {
+        private BoardsContext _context;
+
+        public AppController(Models.BoardsContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -20,7 +27,9 @@ namespace Boards.Controllers.Web
 
         public IActionResult Boards()
         {
-            return View();
+            var boards = _context.Boards.OrderBy(t => t.Name).ToList();
+
+            return View(boards);
         }
 
         public IActionResult Categories()
