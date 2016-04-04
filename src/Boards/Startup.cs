@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using Boards.Models;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using Boards.ViewModels;
 
 namespace Boards
 {
@@ -32,7 +35,11 @@ namespace Boards
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt => {
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
+
             services.AddLogging();
             services.AddEntityFramework()
                 .AddSqlServer()
@@ -58,6 +65,11 @@ namespace Boards
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "App", action = "Index" }
                 );
+            });
+
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Board, BoardViewModel>().ReverseMap();
             });
 
             seeder.EnsureSeedData();
