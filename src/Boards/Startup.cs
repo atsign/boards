@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using Boards.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Boards
 {
@@ -32,6 +33,7 @@ namespace Boards
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddLogging();
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<BoardsContext>();
@@ -41,7 +43,7 @@ namespace Boards
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, BoardsContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();
             app.UseMvc(config =>
@@ -59,6 +61,8 @@ namespace Boards
             });
 
             seeder.EnsureSeedData();
+
+            loggerFactory.AddDebug(LogLevel.Warning);
         }
 
         // Entry point for the application.
