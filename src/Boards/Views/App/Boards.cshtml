@@ -6,20 +6,8 @@
 <div class="wrap narrow">
     <div class="gencon">
         <h1>Hello, Pockets</h1>
-        <div id="list-pane">
-            <h2>My Boards</h2>
-            <button onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i> New Board</button>
-            <ul>
-                @foreach (var board in Model)
-                {
-                    <li>
-                        <a href="/board">@board.Name</a>
-                        <span class="controls">
-                            <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-                        </span>
-                    </li>
-                }
-            </ul>
+        <div id="list-pane" ng-app="boards-app">
+            <boards></boards>
         </div>
     </div>
 </div>

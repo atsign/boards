@@ -1,6 +1,12 @@
 ﻿require.config({
     paths: {
-        'jquery': 'lib/jquery.min'
+        'jquery': 'lib/jquery.min',
+        'angular': 'lib/angular.min'
+    },
+    shim: {
+        "angular": {
+            exports: "angular"
+        }
     }
 });
 

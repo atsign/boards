@@ -76,6 +76,11 @@
     li:hover .controls {
         display: inline-block;
     }
+
+    .message {
+        color: $color-rolling-stone;
+        margin-bottom: 0;
+    }
 }
 
 #category-color-picker {
