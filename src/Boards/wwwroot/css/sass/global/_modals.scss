@@ -2,9 +2,13 @@
     @include position(fixed, 0px null null 0px);
     @include size(100%);
     background-color: rgba($color-shark, 0.83);
-    display: flex;
+    display: none;
     justify-content: center;
     z-index: 100;
+
+    &.active {
+        display: flex;
+    }
 }
 
 #modal-content {

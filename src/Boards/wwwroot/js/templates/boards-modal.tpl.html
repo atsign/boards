@@ -1,0 +1,9 @@
+<div id="modal-content">
+    <button id="modal-close" ng-click="boardsModal.closeModal()"><i class="fa fa-times"></i></button>
+    <h2>{{title}}</h2>
+    <label for="board-name-input">Name</label>
+    <input type="text" value="" id="board-name-input" name="board-name-input" ng-model="boardsModal.name" />
+    <label for="board-description-textarea">Description</label>
+    <textarea name="board-description-textarea" id="board-description-textarea" ng-model="boardsModal.description"></textarea>
+    <button ng-click="boardsModal.saveClicked(boardsModal.name, boardsModal.description)" ng-disabled="boardsModal.saving"><span ng-bind-html="boardsModal.ctaText"></span></button>
+</div>

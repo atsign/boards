@@ -10,6 +10,15 @@ define(['angular'], function (angular) {
                     })
                 ;
             };
+
+            boardsService.addBoard = function (name, description) {
+                return $http.post('/api/boards', {
+                    name: name,
+                    description: description
+                }).then(function (results) {
+                    return results.data;
+                });
+            };
         })
     ;
 });
