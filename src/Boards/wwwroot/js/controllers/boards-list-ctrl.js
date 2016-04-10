@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('BoardsListCtrl', function (boardsService) {
+        .controller('BoardsListCtrl', function (boardsService, $scope) {
             var boardsList = this;
 
             boardsList.haveLoaded = false;
@@ -13,6 +13,8 @@ define(['angular'], function (angular) {
             };
 
             boardsList.reloadList();
+
+            $scope.$on('reloadList', boardsList.reloadList);
         });
     ;
 });

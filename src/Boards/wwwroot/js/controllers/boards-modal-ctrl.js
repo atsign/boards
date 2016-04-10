@@ -5,23 +5,39 @@ define(['angular'], function (angular) {
 
             boardsModal.ctaText = $sce.trustAsHtml("Save");
             boardsModal.saving = false;
+            boardsModal.serverErrorMessage = '';
 
             boardsModal.closeModal = function () {
-                $scope.modalActive = false;
+                resetModal();
             }
 
             boardsModal.saveClicked = function (name, description) {
                 boardsModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
                 boardsModal.saving = true;
-                /*
+
                 boardsService.addBoard(name, description)
-                    .then(function (results) {
-                        console.log('Board saved.', results);
+                    .then(function () {
+                        resetModal();
+                        $scope.$parent.$broadcast('reloadList');
                     }, function (err) {
-                        console.log("Board save failed", err);
+                        boardsModal.serverErrorMessage = err.data.message;
+                        boardsModal.saving = false;
+                        boardsModal.ctaText = $sce.trustAsHtml('Save');
                     })
                 ;
-                */
+            }
+
+            function resetModal() {
+                boardsModal.name = '';
+                boardsModal.description = '';
+                boardsModal.serverErrorMessage = '';
+                boardsModal.saving = false;
+                boardsModal.ctaText = $sce.trustAsHtml('Save');
+
+                $scope.modalActive = false;
+
+                $scope.form.$setPristine()
+                $scope.form.$setUntouched();
             }
         });
     ;

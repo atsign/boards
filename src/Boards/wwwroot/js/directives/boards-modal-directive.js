@@ -6,7 +6,7 @@ define(['angular'], function (angular) {
                 restrict: 'A',
                 controller: 'BoardsModalCtrl as boardsModal',
                 scope: {
-                    title: '=modalTitle',
+                    modalTitle: '=',
                     modalActive: '='
                 }
             };

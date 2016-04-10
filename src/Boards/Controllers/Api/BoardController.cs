@@ -33,6 +33,8 @@ namespace Boards.Controllers.Api
         [HttpPost("")]
         public JsonResult Post([FromBody]BoardViewModel vm)
         {
+            string serverErrorMessage = "There was a problem saving your new board. Please try again.";
+
             try
             {
                 if (ModelState.IsValid)
@@ -55,11 +57,11 @@ namespace Boards.Controllers.Api
             {
                 _logger.LogError("Failed to save new board", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Message = ex.Message });
+                return Json(new { Message = serverErrorMessage });
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json(new { Message = "Failed", ModelState = ModelState });
+            return Json(new { Message = serverErrorMessage, ModelState = ModelState });
         }
     }
 }

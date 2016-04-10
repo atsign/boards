@@ -9,10 +9,19 @@
             <div id="list-pane">
                 <h2>My Boards</h2>
                 <button ng-click="boardsCtrl.newBoardClicked()"><i class="fa fa-plus"></i> New Board</button>
-                <boards-list></boards-list>
+                <boards-list>
+                    <p class="message">
+                        <em><i class="fa fa-spinner fa-spin"></i> Loading Boards</em>
+                    </p>
+                </boards-list>
             </div>
         </div>
     </div>
 
-    <div id="modal" boards-modal modal-title="boardsCtrl.modalTitle" ng-class="boardsCtrl.modalActive ? 'active' : ''" modal-active="boardsCtrl.modalActive"></div>
+    <div id="modal"
+         boards-modal
+         modal-title="boardsCtrl.modalTitle"
+         modal-active="boardsCtrl.modalActive"
+         ng-class="boardsCtrl.modalActive ? 'active' : ''">
+    </div>
 </div>

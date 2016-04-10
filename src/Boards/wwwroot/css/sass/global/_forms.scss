@@ -27,6 +27,16 @@ textarea {
     line-height: 1;
     margin-bottom: 24px;
     padding: 0 10px;
+
+    &[disabled] {
+        background-color: lighten($color-rolling-stone, 10%);
+    }
+
+    .ng-submitted &.ng-invalid,
+    &.ng-invalid.ng-touched {
+        background-color: lighten($color-flamingo, 30%);
+        border: 2px solid darken($color-flamingo, 30%);
+    }
 }
 
 textarea {
@@ -53,4 +63,12 @@ select {
 
 option {
     font-size: 26px;
+}
+
+.form-message {
+    color: $color-flamingo;
+
+    div {
+        margin: -10px 0 20px 0;
+    }
 }
