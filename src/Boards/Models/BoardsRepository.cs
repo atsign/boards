@@ -39,5 +39,22 @@ namespace Boards.Models
         {
             return _context.SaveChanges() > 0;
         }
+
+        public bool RemoveBoard(int Id)
+        {
+            var board = _context.Boards.Where<Board>(q => q.Id == Id).FirstOrDefault();
+
+            try
+            {
+                _context.Remove(board);
+                return SaveAll();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Unable to delete board", ex);
+                return false;
+
+            }
+        }
     }
 }

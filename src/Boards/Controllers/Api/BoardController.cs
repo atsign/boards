@@ -53,7 +53,7 @@ namespace Boards.Controllers.Api
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError("Failed to save new board", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -62,6 +62,20 @@ namespace Boards.Controllers.Api
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
+        }
+
+        [HttpDelete("")]
+        public JsonResult Delete([FromBody] string id)
+        {
+            if (_repository.RemoveBoard(int.Parse(id)))
+            {
+                return Json(new { Message = "Success" });
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = "Failed" });
+            }
         }
     }
 }

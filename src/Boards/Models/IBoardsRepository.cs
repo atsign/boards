@@ -7,5 +7,6 @@ namespace Boards.Models
         IEnumerable<Board> GetAllBoards();
         void AddBoard(Board newBoard);
         bool SaveAll();
+        bool RemoveBoard(int id);
     }
 }

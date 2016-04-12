@@ -74,7 +74,7 @@ namespace Boards
 
             seeder.EnsureSeedData();
 
-            loggerFactory.AddDebug(LogLevel.Warning);
+            loggerFactory.AddDebug(LogLevel.Information);
         }
 
         // Entry point for the application.
