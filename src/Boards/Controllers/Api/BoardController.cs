@@ -64,10 +64,10 @@ namespace Boards.Controllers.Api
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
         }
 
-        [HttpDelete("")]
-        public JsonResult Delete([FromBody] string id)
+        [HttpDelete("{id}")]
+        public JsonResult Delete(int id)
         {
-            if (_repository.RemoveBoard(int.Parse(id)))
+            if (_repository.RemoveBoard(id))
             {
                 return Json(new { Message = "Success" });
             }

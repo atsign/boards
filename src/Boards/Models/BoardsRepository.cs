@@ -53,7 +53,6 @@ namespace Boards.Models
             {
                 _logger.LogError("Unable to delete board", ex);
                 return false;
-
             }
         }
     }

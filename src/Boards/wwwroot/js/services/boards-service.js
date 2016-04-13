@@ -19,6 +19,10 @@ define(['angular'], function (angular) {
                     return results.data;
                 });
             };
+
+            boardsService.deleteBoard = function (id) {
+                return $http.delete('/api/boards/' + id);
+            };
         })
     ;
 });
