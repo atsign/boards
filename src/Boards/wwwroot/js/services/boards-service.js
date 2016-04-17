@@ -23,6 +23,16 @@ define(['angular'], function (angular) {
             boardsService.deleteBoard = function (id) {
                 return $http.delete('/api/boards/' + id);
             };
+
+            boardsService.updateBoard = function (id, name, description) {
+                return $http.put('/api/boards', {
+                    id: id,
+                    name: name,
+                    description: description
+                }).then(function (results) {
+                    return results.data;
+                });
+            }
         })
     ;
 });

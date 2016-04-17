@@ -8,6 +8,7 @@ define(['angular'], function (angular) {
             boardsCtrl.newBoardClicked = function () {
                 boardsCtrl.modalTitle = "Add a Board";
                 boardsCtrl.modalActive = true;
+                boardsCtrl.modalMethod = "new";
             };
         });
     ;

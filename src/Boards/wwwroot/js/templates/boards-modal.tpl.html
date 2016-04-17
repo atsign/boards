@@ -16,6 +16,6 @@
         <div class="form-message" ng-show="form.$submitted || form.boardDescriptionTextarea.$touched">
             <div ng-show="form.boardDescriptionTextarea.$error.maxlength">Board description must be less than 2048 characters</div>
         </div>
-        <button type="submit" ng-click="form.$valid && boardsModal.saveClicked(boardsModal.name, boardsModal.description)" ng-disabled="boardsModal.saving"><span ng-bind-html="boardsModal.ctaText"></span></button>
+        <button type="submit" ng-click="form.$valid && boardsModal.saveClicked(boardsModal.name, boardsModal.description, boardsModal.id)" ng-disabled="boardsModal.saving"><span ng-bind-html="boardsModal.ctaText"></span></button>
     </form>
 </div>

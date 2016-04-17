@@ -23,7 +23,11 @@ define(['angular'], function (angular) {
                         })
                     ;
                 }
-            }
+            };
+
+            boardsList.updateBoard = function (id, name, description) {
+                $scope.$parent.$broadcast('openUpdateModal', id, name, description);
+            };
 
             boardsList.reloadList();
 
