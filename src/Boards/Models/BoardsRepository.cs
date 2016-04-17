@@ -55,5 +55,10 @@ namespace Boards.Models
                 return false;
             }
         }
+
+        public void UpdateBoard(Board board)
+        {
+            _context.Update(board);
+        }
     }
 }

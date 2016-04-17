@@ -8,5 +8,6 @@ namespace Boards.Models
         void AddBoard(Board newBoard);
         bool SaveAll();
         bool RemoveBoard(int id);
+        void UpdateBoard(Board board);
     }
 }

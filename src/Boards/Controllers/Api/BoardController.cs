@@ -77,5 +77,39 @@ namespace Boards.Controllers.Api
                 return Json(new { Message = "Failed" });
             }
         }
+
+        [HttpPut("")]
+        public JsonResult Put([FromBody] BoardViewModel vm)
+        {
+            string serverErrorMessage = "There was a problem updating your board. Please try again.";
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var board = Mapper.Map<Board>(vm);
+
+                    // Save to DB
+                    _logger.LogInformation($"Attemping to update board \"{vm.Name}\" (ID: {vm.Id})");
+                    _repository.UpdateBoard(board);
+
+                    if (_repository.SaveAll())
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        return Json(Mapper.Map<Board, BoardViewModel>(board));
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to update board.", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = serverErrorMessage });
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = serverErrorMessage, ModelState = ModelState });
+        }
     }
 }
