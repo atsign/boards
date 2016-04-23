@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using Boards.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Mvc;
 
 namespace Boards
 {
@@ -35,10 +37,22 @@ namespace Boards
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                .AddJsonOptions(opt => {
-                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });
+            services.AddIdentity<BoardsUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/";
+            })
+            .AddEntityFrameworkStores<BoardsContext>();
+
+            services.AddMvc(config => {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
+            .AddJsonOptions(opt => {
+                opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddLogging();
             services.AddEntityFramework()
@@ -50,9 +64,10 @@ namespace Boards
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();
+            app.UseIdentity();
             app.UseMvc(config =>
             {
                 config.MapRoute(
@@ -72,7 +87,7 @@ namespace Boards
                 config.CreateMap<Board, BoardViewModel>().ReverseMap();
             });
 
-            seeder.EnsureSeedData();
+            await seeder.EnsureSeedDataAsync();
 
             loggerFactory.AddDebug(LogLevel.Information);
         }

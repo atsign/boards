@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Boards.ViewModels.LoginViewModel
+@{
     ViewBag.Title = "Home";
 }
 <div class="wrap narrow">
@@ -6,12 +7,15 @@
         <h1>Welcome Aboard</h1>
         <p>Boards is a simple kanban app designed to keep you focused on the task at hand. Log in below or <a href="#">sign up for free</a> to start building your Boards.</p>
 
-        <form action="/boards" method="post">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" />
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" />
-            <button>Log In</button>
+        <form method="post" action="/">
+            <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+            <label asp-for="Username">Username</label>
+            <input type="text" id="username" asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+            <label asp-for="Password">Password</label>
+            <input type="password" id="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+            <button type="submit">Log In</button>
         </form>
     </div>
 </div>

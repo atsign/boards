@@ -3,14 +3,20 @@
         <a href="/" id="header-logo"><img src="~/images/header-logo.png" alt="Boards" /></a>
         <a href="/" id="header-home-link">Boards</a>
         <ul id="main-nav">
-            <li><a href="#">My Boards</a></li>
-            <li id="menu-trigger-container">
-                <span id="menu-trigger" data-action="menu-trigger">My Account <i class="fa fa-caret-down"></i></span>
-                <ul id="sub-nav">
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Log Out</a></li>
-                </ul>
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="App" asp-action="Boards">My Boards</a></li>
+                <li id="menu-trigger-container">
+                    <span id="menu-trigger" data-action="menu-trigger">My Account <i class="fa fa-caret-down"></i></span>
+                    <ul id="sub-nav">
+                        <li><a href="#">Settings</a></li>
+                        <li><a asp-controller="App" asp-action="Logout">Log Out</a></li>
+                    </ul>
+                </li>
+            } else {
+                <li><a asp-controller="App" asp-action="About">About</a></li>
+                <li><a asp-controller="App" asp-action="SignUp">Sign Up</a></li>
+            }
         </ul>
     </div>
 </div>

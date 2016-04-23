@@ -1,28 +1,30 @@
 ﻿@model IEnumerable<Boards.Models.Board>
 @{
-    ViewBag.Title = "Pockets's Boards";
+    ViewBag.Title = $"{User.Identity.Name}'s Boards";
 }
-<div ng-controller="BoardsCtrl as boardsCtrl">
-    <div class="wrap narrow">
-        <div class="gencon">
-            <h1>Hello, Pockets</h1>
-            <div id="list-pane">
-                <h2>My Boards</h2>
-                <button ng-click="boardsCtrl.newBoardClicked()"><i class="fa fa-plus"></i> New Board</button>
-                <boards-list>
-                    <p class="message">
-                        <em><i class="fa fa-spinner fa-spin"></i> Loading Boards</em>
-                    </p>
-                </boards-list>
+<div ng-app="boards-app">
+    <div ng-controller="BoardsCtrl as boardsCtrl">
+        <div class="wrap narrow">
+            <div class="gencon">
+                <h1>Hello, @User.Identity.Name</h1>
+                <div id="list-pane">
+                    <h2>My Boards</h2>
+                    <button ng-click="boardsCtrl.newBoardClicked()"><i class="fa fa-plus"></i> New Board</button>
+                    <boards-list>
+                        <p class="message">
+                            <em><i class="fa fa-spinner fa-spin"></i> Loading Boards</em>
+                        </p>
+                    </boards-list>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="modal"
-         boards-modal
-         modal-title="boardsCtrl.modalTitle"
-         modal-active="boardsCtrl.modalActive"
-         modal-method="boardsCtrl.modalMethod"
-         ng-class="boardsCtrl.modalActive ? 'active' : ''">
+        <div id="modal"
+             boards-modal
+             modal-title="boardsCtrl.modalTitle"
+             modal-active="boardsCtrl.modalActive"
+             modal-method="boardsCtrl.modalMethod"
+             ng-class="boardsCtrl.modalActive ? 'active' : ''">
+        </div>
     </div>
 </div>
