@@ -73,9 +73,7 @@ namespace Boards.Controllers.Web
         [Authorize]
         public IActionResult Boards()
         {
-            var boards = _repository.GetAllBoards();
-
-            return View(boards);
+            return View();
         }
 
         public IActionResult Categories()

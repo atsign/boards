@@ -4,10 +4,10 @@ namespace Boards.Models
 {
     public interface IBoardsRepository
     {
-        IEnumerable<Board> GetAllBoards();
+        IEnumerable<Board> GetAllUserBoards(string name);
         void AddBoard(Board newBoard);
         bool SaveAll();
-        bool RemoveBoard(int id);
-        void UpdateBoard(Board board);
+        bool RemoveBoard(int id, string username);
+        void UpdateBoard(Board board, string username);
     }
 }

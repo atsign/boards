@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Boards.Models;
 using Boards.ViewModels;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Boards.Controllers.Api
 {
+    [Authorize]
     [Route("api/boards")]
     public class BoardController : Controller
     {
@@ -26,7 +28,7 @@ namespace Boards.Controllers.Api
         [HttpGet("")]
         public JsonResult Get()
         {
-            var boards = Mapper.Map<IEnumerable<BoardViewModel>>(_repository.GetAllBoards());
+            var boards = Mapper.Map<IEnumerable<BoardViewModel>>(_repository.GetAllUserBoards(User.Identity.Name));
             return Json(boards);
         }
 
@@ -40,6 +42,7 @@ namespace Boards.Controllers.Api
                 if (ModelState.IsValid)
                 {
                     var newBoard = Mapper.Map<Board>(vm);
+                    newBoard.UserName = User.Identity.Name;
 
                     // Save to DB
                     _logger.LogInformation("Attempting to save new board");
@@ -67,7 +70,7 @@ namespace Boards.Controllers.Api
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            if (_repository.RemoveBoard(id))
+            if (_repository.RemoveBoard(id, User.Identity.Name))
             {
                 return Json(new { Message = "Success" });
             }
@@ -88,10 +91,11 @@ namespace Boards.Controllers.Api
                 if (ModelState.IsValid)
                 {
                     var board = Mapper.Map<Board>(vm);
+                    var username = User.Identity.Name;
 
                     // Save to DB
                     _logger.LogInformation($"Attemping to update board \"{vm.Name}\" (ID: {vm.Id})");
-                    _repository.UpdateBoard(board);
+                    _repository.UpdateBoard(board, username);
 
                     if (_repository.SaveAll())
                     {

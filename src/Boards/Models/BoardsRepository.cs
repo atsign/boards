@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Data.Entity;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,14 @@ namespace Boards.Models
             _context.Add(newBoard);
         }
 
-        public IEnumerable<Board> GetAllBoards()
+        public IEnumerable<Board> GetAllUserBoards(string username)
         {
             try
             {
-                return _context.Boards.OrderBy(t => t.Name).ToList();
+                return _context.Boards
+                    .OrderBy(t => t.Name)
+                    .Where(t => t.UserName == username)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -40,9 +44,9 @@ namespace Boards.Models
             return _context.SaveChanges() > 0;
         }
 
-        public bool RemoveBoard(int Id)
+        public bool RemoveBoard(int Id, string username)
         {
-            var board = _context.Boards.Where<Board>(q => q.Id == Id).FirstOrDefault();
+            var board = _context.Boards.Where<Board>(q => q.Id == Id).Where<Board>(q => q.UserName == username).FirstOrDefault();
 
             try
             {
@@ -56,9 +60,20 @@ namespace Boards.Models
             }
         }
 
-        public void UpdateBoard(Board board)
+        public void UpdateBoard(Board board, string username)
         {
-            _context.Update(board);
+            var existingBoard = _context.Boards.Where<Board>(q => q.Id == board.Id).Where<Board>(q => q.UserName == username).FirstOrDefault();
+
+            if (existingBoard != null)
+            {
+                existingBoard.Name = board.Name;
+                existingBoard.Description = board.Description;
+                _context.Update(existingBoard);
+            } else
+            {
+                _logger.LogError($"Unable to find board with ID {board.Id} for user {username}");
+                throw new Exception();
+            }
         }
     }
 }
