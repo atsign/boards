@@ -9,13 +9,13 @@
                 <li id="menu-trigger-container">
                     <span id="menu-trigger" data-action="menu-trigger">My Account <i class="fa fa-caret-down"></i></span>
                     <ul id="sub-nav">
-                        <li><a href="#">Settings</a></li>
-                        <li><a asp-controller="App" asp-action="Logout">Log Out</a></li>
+                        <li><a asp-controller="Account" asp-action="Settings">Settings</a></li>
+                        <li><a asp-controller="Account" asp-action="Logout">Log Out</a></li>
                     </ul>
                 </li>
             } else {
                 <li><a asp-controller="App" asp-action="About">About</a></li>
-                <li><a asp-controller="App" asp-action="SignUp">Sign Up</a></li>
+                <li><a asp-controller="Account" asp-action="SignUp">Sign Up</a></li>
             }
         </ul>
     </div>

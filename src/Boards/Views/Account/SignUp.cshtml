@@ -1,0 +1,24 @@
+﻿@model Boards.ViewModels.SignUpViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+<div class="wrap narrow">
+    <div class="gencon">
+        <h1>Sign Up</h1>
+        <p>Joining Boards is free! Just choose a username and password to get started. Already have an account? <a asp-controller="App" asp-action="Index">Click here</a> to sign in.</p>
+
+        <form method="post" action="/sign-up">
+            <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+            <label asp-for="Username">Username</label>
+            <input type="text" id="Username" asp-for="Username" />
+            <span asp-validation-for="Username"></span>
+            <label asp-for="Password">Password</label>
+            <input type="password" id="Password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+            <label asp-for="PasswordConfirm">Confirm Password</label>
+            <input type="password" id="PasswordConfirm" asp-for="PasswordConfirm" />
+            <span asp-validation-for="PasswordConfirm"></span>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>

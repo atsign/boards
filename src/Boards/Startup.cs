@@ -41,7 +41,6 @@ namespace Boards
         {
             services.AddIdentity<BoardsUser, IdentityRole>(config =>
             {
-                config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;
                 config.Cookies.ApplicationCookie.LoginPath = "/";
                 config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()

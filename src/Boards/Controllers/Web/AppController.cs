@@ -7,6 +7,7 @@ using Boards.Models;
 using Microsoft.AspNet.Authorization;
 using Boards.ViewModels;
 using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Boards.Controllers.Web
 {
@@ -53,16 +54,6 @@ namespace Boards.Controllers.Web
                 }
             }
             return View();
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-               await _signInManager.SignOutAsync();
-            }
-
-            return RedirectToAction("Index", "App");
         }
 
         public IActionResult About()
