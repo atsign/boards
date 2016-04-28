@@ -7,6 +7,7 @@ using Boards.ViewModels;
 using Boards.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -89,6 +90,45 @@ namespace Boards.Controllers.Web
                             ModelState.AddModelError("", error.Description);
                         }
                     }
+                }
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpGet("/settings")]
+        public IActionResult AccountSettings()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost("/settings")]
+        public async Task<IActionResult> AccountSettings(AccountSettingsViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                if (vm.NewPassword == vm.PasswordConfirm)
+                {
+                    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                    var changePasswordResult = await _userManager.ChangePasswordAsync(currentUser, vm.OldPassword, vm.NewPassword);
+
+                    if (changePasswordResult.Succeeded)
+                    {
+                        ViewBag.AppMessage = "Password Updated";
+                    }
+                    else
+                    {
+                        foreach (var error in changePasswordResult.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Your new password and re-typed new password did not match. Please try again.");
                 }
             }
 

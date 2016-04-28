@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Boards.ViewModels
 {
-    public class SignUpViewModel
+    public class AccountSettingsViewModel
     {
-        [Required]
-        public string Username { get; set; }
-        [Required]
         [MinLength(8)]
-        public string Password { get; set; }
         [Required]
+        public string OldPassword { get; set; }
         [MinLength(8)]
+        [Required]
+        public string NewPassword { get; set; }
+        [MinLength(8)]
+        [Required]
         public string PasswordConfirm { get; set; }
     }
 }

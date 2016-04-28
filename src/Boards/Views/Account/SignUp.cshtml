@@ -9,15 +9,19 @@
 
         <form method="post" action="/sign-up">
             <div asp-validation-summary="ValidationSummary.ModelOnly"></div>
+
             <label asp-for="Username">Username</label>
             <input type="text" id="Username" asp-for="Username" />
             <span asp-validation-for="Username"></span>
+
             <label asp-for="Password">Password</label>
             <input type="password" id="Password" asp-for="Password" />
             <span asp-validation-for="Password"></span>
+
             <label asp-for="PasswordConfirm">Confirm Password</label>
             <input type="password" id="PasswordConfirm" asp-for="PasswordConfirm" />
             <span asp-validation-for="PasswordConfirm"></span>
+
             <button type="submit">Sign Up</button>
         </form>
     </div>
