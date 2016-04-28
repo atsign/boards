@@ -18,7 +18,9 @@
             'controllers/boards-modal-ctrl',
             'directives/boards-list-directive',
             'directives/boards-modal-directive'
-        ]);
+        ], function () {
+            angular.bootstrap(document, ['boards-app']);
+        });
     };
 
     return APP;
