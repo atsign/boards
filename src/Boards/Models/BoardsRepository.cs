@@ -46,11 +46,18 @@ namespace Boards.Models
 
         public bool RemoveBoard(int Id, string username)
         {
-            var board = _context.Boards.Where<Board>(q => q.Id == Id).Where<Board>(q => q.UserName == username).FirstOrDefault();
+            var board = _context.Boards.Where<Board>(q => q.Id == Id && q.UserName == username).FirstOrDefault();
+            var categories = _context.Categories.Where<Category>(q => q.BoardId == Id);
 
             try
             {
                 _context.Remove(board);
+
+                foreach (Category cat in categories)
+                {
+                    _context.Remove(cat);
+                }
+
                 return SaveAll();
             }
             catch (Exception ex)
