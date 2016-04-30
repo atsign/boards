@@ -8,9 +8,10 @@ using Boards.Models;
 namespace Boards.Migrations
 {
     [DbContext(typeof(BoardsContext))]
-    partial class BoardsContextModelSnapshot : ModelSnapshot
+    [Migration("20160430172133_AddColorToCategory")]
+    partial class AddColorToCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")

@@ -102,6 +102,7 @@ namespace Boards
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Board, BoardViewModel>().ReverseMap();
+                config.CreateMap<Category, CategoryViewModel>().ReverseMap();
             });
 
             await seeder.EnsureSeedDataAsync();

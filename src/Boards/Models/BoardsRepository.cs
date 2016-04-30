@@ -75,5 +75,15 @@ namespace Boards.Models
                 throw new Exception();
             }
         }
+
+        public void AddCategory(Category newCategory)
+        {
+            _context.Add(newCategory);
+        }
+
+        public Board getBoardForUser(int id, string name)
+        {
+            return _context.Boards.Where(q => q.Id == id && q.UserName == name).FirstOrDefault();
+        }
     }
 }

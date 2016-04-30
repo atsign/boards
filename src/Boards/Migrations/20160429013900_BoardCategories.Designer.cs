@@ -8,9 +8,10 @@ using Boards.Models;
 namespace Boards.Migrations
 {
     [DbContext(typeof(BoardsContext))]
-    partial class BoardsContextModelSnapshot : ModelSnapshot
+    [Migration("20160429013900_BoardCategories")]
+    partial class BoardCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -76,20 +77,6 @@ namespace Boards.Migrations
                         .HasAnnotation("Relational:Name", "UserNameIndex");
 
                     b.HasAnnotation("Relational:TableName", "AspNetUsers");
-                });
-
-            modelBuilder.Entity("Boards.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BoardId");
-
-                    b.Property<int>("ColorCode");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>

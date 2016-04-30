@@ -9,5 +9,8 @@ namespace Boards.Models
         bool SaveAll();
         bool RemoveBoard(int id, string username);
         void UpdateBoard(Board board, string username);
+
+        void AddCategory(Category newCategory);
+        Board getBoardForUser(int id, string name);
     }
 }
