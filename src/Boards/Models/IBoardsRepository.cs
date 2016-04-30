@@ -11,6 +11,7 @@ namespace Boards.Models
         void UpdateBoard(Board board, string username);
 
         void AddCategory(Category newCategory);
-        Board getBoardForUser(int id, string name);
+        Board GetBoardForUser(int id, string name);
+        void RemoveCategory(int id, int boardId);
     }
 }

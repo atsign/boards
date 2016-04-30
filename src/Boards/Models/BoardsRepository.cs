@@ -88,9 +88,32 @@ namespace Boards.Models
             _context.Add(newCategory);
         }
 
-        public Board getBoardForUser(int id, string name)
+        public Board GetBoardForUser(int id, string name)
         {
             return _context.Boards.Where(q => q.Id == id && q.UserName == name).FirstOrDefault();
+        }
+
+        public void RemoveCategory(int id, int boardId)
+        {
+            // TODO: Assert that there are no tasks associated with this category
+
+            var categoryCount = _context.Categories.Where(q => q.BoardId == boardId).ToList().Count;
+            if (categoryCount < 2)
+            {
+                _logger.LogError($"A board must have at least 1 category. Category count was {categoryCount} when trying to delete category with ID {id}");
+                throw new Exception("A board must have at least 1 category.");
+            }
+
+            var existingCategory = _context.Categories.Where(q => q.Id == id && q.BoardId == boardId).FirstOrDefault();
+            if (existingCategory != null)
+            {
+                _context.Remove(existingCategory);
+            }
+            else
+            {
+                _logger.LogError($"Unable to find category with ID {id} for board with ID {boardId}");
+                throw new Exception($"Unable to find category with ID {id} for board with ID {boardId}");
+            }
         }
     }
 }

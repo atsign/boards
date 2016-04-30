@@ -61,12 +61,38 @@ namespace Boards.Controllers.Api
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
         }
 
+        [HttpDelete("{categoryId}")]
+        public JsonResult Delete(int categoryId)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+                _repository.RemoveCategory(categoryId, int.Parse((string) RouteData.Values["id"]));
+
+                if (_repository.SaveAll())
+                {
+                    return Json(new { message = "Success" });
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { message = "Failed" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
+
         private void _assertUserAccessToBoard()
         {
             int id;
             if (Int32.TryParse((string)RouteData.Values["id"], out id))
             {
-                Board thisBoard = _repository.getBoardForUser(id, User.Identity.Name);
+                Board thisBoard = _repository.GetBoardForUser(id, User.Identity.Name);
                 if (thisBoard != null)
                 {
                     return;
