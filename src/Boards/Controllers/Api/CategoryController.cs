@@ -123,6 +123,23 @@ namespace Boards.Controllers.Api
             }
         }
 
+        [HttpGet("")]
+        public JsonResult Get()
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+                var categories = Mapper.Map<IEnumerable<CategoryViewModel>>(_repository.GetAllBoardCategories(int.Parse((string)RouteData.Values["id"])));
+                return Json(categories);
+            }
+
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
+
         private void _assertUserAccessToBoard()
         {
             int id;

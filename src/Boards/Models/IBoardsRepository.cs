@@ -14,5 +14,6 @@ namespace Boards.Models
         Board GetBoardForUser(int id, string name);
         void RemoveCategory(int id, int boardId);
         void UpdateCategory(Category category);
+        IEnumerable<Category> GetAllBoardCategories(int boardId);
     }
 }

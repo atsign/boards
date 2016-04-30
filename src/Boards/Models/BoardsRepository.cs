@@ -131,5 +131,22 @@ namespace Boards.Models
             existingCategory.ColorCode = category.ColorCode;
             _context.Update(existingCategory);
         }
+
+        public IEnumerable<Category> GetAllBoardCategories(int boardId)
+        {
+            try
+            {
+                return _context.Categories
+                    .Where(q => q.BoardId == boardId)
+                    .OrderBy(q => q.ColorCode)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Unable to retrieve categories for board with ID {boardId}", ex.Message);
+                // Error has been logged for reference. Return an empty Category list for front-end
+                return new List<Category>();
+            }
+        }
     }
 }
