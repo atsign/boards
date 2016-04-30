@@ -115,5 +115,21 @@ namespace Boards.Models
                 throw new Exception($"Unable to find category with ID {id} for board with ID {boardId}");
             }
         }
+
+        public void UpdateCategory(Category category)
+        {
+            // Assert that the category ID and the boardId have not been changed
+            var existingCategory = _context.Categories.Where(q => q.Id == category.Id && q.BoardId == category.BoardId).FirstOrDefault();
+            if (existingCategory == null)
+            {
+                string errorMessage = $"A category's ID or its board's ID cannot be altered.";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
+            }
+
+            existingCategory.Name = category.Name;
+            existingCategory.ColorCode = category.ColorCode;
+            _context.Update(existingCategory);
+        }
     }
 }

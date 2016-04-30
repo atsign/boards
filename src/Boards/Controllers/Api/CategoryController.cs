@@ -44,7 +44,7 @@ namespace Boards.Controllers.Api
 
                     if (_repository.SaveAll())
                     {
-                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        Response.StatusCode = (int)HttpStatusCode.Created;
                         return Json(Mapper.Map<Category, CategoryViewModel>(newCategory));
                     }
                 }
@@ -84,6 +84,42 @@ namespace Boards.Controllers.Api
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
+
+        [HttpPut("")]
+        public JsonResult Put([FromBody] CategoryViewModel vm)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+
+                if (ModelState.IsValid)
+                {
+                    var category = Mapper.Map<CategoryViewModel, Category>(vm);
+                    category.BoardId = int.Parse((string)RouteData.Values["id"]);
+                    _repository.UpdateCategory(category);
+
+                    if (_repository.SaveAll())
+                    {
+                        return Json(vm);
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(new { message = "Update Failed", exception = ModelState });
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Message = "Invalid category parameters", ModelState = ModelState });
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message } );
             }
         }
 
