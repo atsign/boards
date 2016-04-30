@@ -43,38 +43,72 @@ namespace Boards.Models
 
             if (!_context.Boards.Any())
             {
-                var firstBoard = new Board()
+                var board1 = new Board()
                 {
                     Name = "First Board",
                     Description = "Sed stet invidunt ut dolore amet minim et elit clita clita dolores voluptua ut tempor rebum sit et erat lorem",
                     UserName = "test"
                 };
 
-                var secondBoard = new Board()
+                var board2 = new Board()
                 {
                     Name = "Second Board",
                     Description = "Vero nibh eu et dolor hendrerit quis amet dolor dolore nulla nam dignissim clita et dolores dolore eum et voluptua",
                     UserName = "test"
                 };
 
-                var thirdBoard = new Board()
+                var board3 = new Board()
                 {
                     Name = "Third Board",
                     Description = "Dolor ipsum consetetur nonumy in eos ea nam accusam amet tempor clita vel dolor invidunt sanctus rebum duis laoreet aliquyam",
                     UserName = "test2"
                 };
 
-                var fourthBoard = new Board()
+                var board4 = new Board()
                 {
                     Name = "Fourth Board",
                     Description = "Dolore sanctus dolor dolore ea eirmod iusto erat nostrud hendrerit justo dolor dolore eirmod invidunt diam duis in sea erat",
                     UserName = "test2"
                 };
 
-                _context.Add(firstBoard);
-                _context.Add(secondBoard);
-                _context.Add(thirdBoard);
-                _context.Add(fourthBoard);
+                _context.Add(board1);
+                _context.Add(board2);
+                _context.Add(board3);
+                _context.Add(board4);
+                _context.SaveChanges();
+
+                var category1 = new Category()
+                {
+                    Name = "Task",
+                    BoardId = board1.Id,
+                    ColorCode = 1
+                };
+
+                var category2 = new Category()
+                {
+                    Name = "Task",
+                    BoardId = board2.Id,
+                    ColorCode = 1
+                };
+
+                var category3 = new Category()
+                {
+                    Name = "Task",
+                    BoardId = board3.Id,
+                    ColorCode = 1
+                };
+
+                var category4 = new Category()
+                {
+                    Name = "Task",
+                    BoardId = board4.Id,
+                    ColorCode = 1
+                };
+
+                _context.Add(category1);
+                _context.Add(category2);
+                _context.Add(category3);
+                _context.Add(category4);
                 _context.SaveChanges();
             }
         }

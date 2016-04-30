@@ -50,8 +50,25 @@ namespace Boards.Controllers.Api
 
                     if (_repository.SaveAll())
                     {
-                        Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<Board, BoardViewModel>(newBoard));
+                        var newCategory = new Category()
+                        {
+                            Name = "Task",
+                            BoardId = newBoard.Id,
+                            ColorCode = 1
+                        };
+
+                        _repository.AddCategory(newCategory);
+
+                        if (_repository.SaveAll())
+                        {
+                            Response.StatusCode = (int)HttpStatusCode.Created;
+                            return Json(Mapper.Map<Board, BoardViewModel>(newBoard));
+                        }
+                        else
+                        {
+                            _logger.LogError($"Board creation succeeded but category creation failed. BoardId: {newBoard.Id}");
+                            throw new Exception("Board creation succeeded but category creation failed.");
+                        }
                     }
                 }
             }
