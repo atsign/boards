@@ -9,7 +9,7 @@
             We're not sure who sent you here, but it doesn't look like we were able to find the page you're looking for.
             @if (User.Identity.IsAuthenticated)
             {
-                @:<a href="@Url.Action("Boards", "App")">Click here</a> to go back to your boards.
+                @:<a href="@Url.Action("Index", "Boards")">Click here</a> to go back to your boards.
             }
             else
             {

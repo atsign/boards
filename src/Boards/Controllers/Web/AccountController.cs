@@ -43,7 +43,7 @@ namespace Boards.Controllers.Web
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Boards", "App");
+                return RedirectToAction("Index", "Boards");
             }
             return View();
         }
@@ -53,7 +53,7 @@ namespace Boards.Controllers.Web
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Boards", "App");
+                return RedirectToAction("Index", "Boards");
             }
 
             if (ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace Boards.Controllers.Web
                         var signInResult = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
                         if (signInResult.Succeeded)
                         {
-                            return RedirectToAction("Boards", "App");
+                            return RedirectToAction("Index", "Boards");
                         }
                         else
                         {

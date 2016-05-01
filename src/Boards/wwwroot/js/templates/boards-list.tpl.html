@@ -1,6 +1,6 @@
 <ul ng-show="boardsList.items">
     <li ng-repeat="board in boardsList.items">
-        <a href="/board">{{board.name}}</a>
+        <a href="/boards/{{board.id}}">{{board.name}}</a>
         <span class="controls">
             <i class="fa fa-pencil-square-o" ng-click="boardsList.updateBoard(board.id, board.name, board.description)"></i> <i class="fa fa-trash-o" ng-click="boardsList.deleteBoard(board.id, board.name)"></i>
         </span>

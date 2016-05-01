@@ -25,7 +25,7 @@ namespace Boards.Controllers.Web
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Boards", "App");
+                return RedirectToAction("Index", "Boards");
             }
             return View();
         }
@@ -41,7 +41,7 @@ namespace Boards.Controllers.Web
                 {
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        return RedirectToAction("Boards", "App");
+                        return RedirectToAction("Index", "Boards");
                     } else
                     {
                         return Redirect(returnUrl);
@@ -56,39 +56,6 @@ namespace Boards.Controllers.Web
         }
 
         public IActionResult About()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public IActionResult Boards()
-        {
-            return View();
-        }
-
-        [Authorize]
-        [HttpGet("/boards/{id}/categories")]
-        public IActionResult Categories()
-        {
-            try
-            {
-                _assertUserAccessToBoard();
-
-                int boardId = int.Parse((string)RouteData.Values["id"]);
-                var thisBoard = _repository.GetBoardForUser(boardId, User.Identity.Name);
-
-                ViewBag.BoardName = thisBoard.Name;
-                ViewBag.BoardId = thisBoard.Id;
-                return View();
-            }
-            catch(Exception ex)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return HttpNotFound();
-            }
-        }
-
-        public IActionResult Board()
         {
             return View();
         }

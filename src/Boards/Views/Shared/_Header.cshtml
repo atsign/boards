@@ -5,7 +5,7 @@
         <ul id="main-nav">
             @if (User.Identity.IsAuthenticated)
             {
-                <li><a asp-controller="App" asp-action="Boards">My Boards</a></li>
+                <li><a asp-controller="Boards" asp-action="Index">My Boards</a></li>
                 <li id="menu-trigger-container">
                     <span id="menu-trigger" data-action="menu-trigger">My Account <i class="fa fa-caret-down"></i></span>
                     <ul id="sub-nav">
