@@ -77,40 +77,49 @@ namespace Boards.Models
                 _context.Add(board4);
                 _context.SaveChanges();
 
-                var category1 = new Category()
-                {
-                    Name = "Task",
-                    BoardId = board1.Id,
-                    ColorCode = 1
-                };
-
-                var category2 = new Category()
-                {
-                    Name = "Task",
-                    BoardId = board2.Id,
-                    ColorCode = 1
-                };
-
-                var category3 = new Category()
-                {
-                    Name = "Task",
-                    BoardId = board3.Id,
-                    ColorCode = 1
-                };
-
-                var category4 = new Category()
-                {
-                    Name = "Task",
-                    BoardId = board4.Id,
-                    ColorCode = 1
-                };
-
-                _context.Add(category1);
-                _context.Add(category2);
-                _context.Add(category3);
-                _context.Add(category4);
-                _context.SaveChanges();
+                Board[] boards = new Board[] { board1, board2, board3, board4 };
+                _addDefaultCategories(boards);
+                _addDefaultPhases(boards);
             }
+        }
+
+        private void _addDefaultCategories(Board[] boards)
+        {
+            foreach (Board board in boards)
+            {
+                var newCategory = new Category()
+                {
+                    Name = "Task",
+                    BoardId = board.Id,
+                    ColorCode = 1
+                };
+                _context.Add(newCategory);
+            }
+
+            _context.SaveChanges();
+        }
+
+        private void _addDefaultPhases(Board[] boards)
+        {
+            string[] phaseNames = { "Backlog", "In Progress", "Done" };
+
+            foreach(Board board in boards)
+            {
+                int order = 1;
+                foreach (string phaseName in phaseNames)
+                {
+                    Phase newPhase = new Phase()
+                    {
+                        Name = phaseName,
+                        BoardId = board.Id,
+                        Order = order++
+                    };
+
+                    _context.Add(newPhase);
+                }
+            }
+
+            _context.SaveChanges();
         }
     }
 }

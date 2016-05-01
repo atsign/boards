@@ -50,14 +50,8 @@ namespace Boards.Controllers.Api
 
                     if (_repository.SaveAll())
                     {
-                        var newCategory = new Category()
-                        {
-                            Name = "Task",
-                            BoardId = newBoard.Id,
-                            ColorCode = 1
-                        };
-
-                        _repository.AddCategory(newCategory);
+                        _addDefaultCategory(newBoard);
+                        _addDefaultPhases(newBoard);
 
                         if (_repository.SaveAll())
                         {
@@ -66,8 +60,8 @@ namespace Boards.Controllers.Api
                         }
                         else
                         {
-                            _logger.LogError($"Board creation succeeded but category creation failed. BoardId: {newBoard.Id}");
-                            throw new Exception("Board creation succeeded but category creation failed.");
+                            _logger.LogError($"Board creation succeeded but there was an issue creating default categories or phases. BoardId: {newBoard.Id}");
+                            throw new Exception("Board creation succeeded default category/phase creation failed.");
                         }
                     }
                 }
@@ -131,6 +125,36 @@ namespace Boards.Controllers.Api
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
+        }
+
+        private void _addDefaultCategory(Board newBoard)
+        {
+            var newCategory = new Category()
+            {
+                Name = "Task",
+                BoardId = newBoard.Id,
+                ColorCode = 1
+            };
+
+            _repository.AddCategory(newCategory);
+        }
+
+        private void _addDefaultPhases(Board newBoard)
+        {
+            string[] defaultPhaseNames = { "Backlog", "In Progress", "Done" };
+            int order = 1;
+
+            foreach (string phaseName in defaultPhaseNames)
+            {
+                Phase newPhase = new Phase()
+                {
+                    Name = phaseName,
+                    Order = order++,
+                    BoardId = newBoard.Id
+                };
+
+                _repository.AddPhase(newPhase);
+            }
         }
     }
 }

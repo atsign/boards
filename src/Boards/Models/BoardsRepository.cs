@@ -148,5 +148,10 @@ namespace Boards.Models
                 return new List<Category>();
             }
         }
+
+        public void AddPhase(Phase newPhase)
+        {
+            _context.Add(newPhase);
+        }
     }
 }

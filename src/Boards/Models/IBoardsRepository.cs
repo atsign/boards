@@ -15,5 +15,6 @@ namespace Boards.Models
         void RemoveCategory(int id, int boardId);
         void UpdateCategory(Category category);
         IEnumerable<Category> GetAllBoardCategories(int boardId);
+        void AddPhase(Phase newPhase);
     }
 }
