@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Page Not Found";
+}
+
+<div class="wrap narrow">
+    <div class="gencon">
+        <h1>Whoops!</h1>
+        <p>
+            We're not sure who sent you here, but it doesn't look like we were able to find the page you're looking for.
+            @if (User.Identity.IsAuthenticated)
+            {
+                @:<a href="@Url.Action("Boards", "App")">Click here</a> to go back to your boards.
+            }
+            else
+            {
+                @:<a href="@Url.Action("Index", "App")">Click here</a> to go back to the login page.
+            }
+        </p>
+    </div>
+</div>

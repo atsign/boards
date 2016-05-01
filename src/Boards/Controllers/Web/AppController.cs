@@ -8,17 +8,16 @@ using Microsoft.AspNet.Authorization;
 using Boards.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace Boards.Controllers.Web
 {
-    public class AppController : Controller
+    public class AppController : BoardsBaseController
     {
-        private IBoardsRepository _repository;
         private SignInManager<BoardsUser> _signInManager;
 
-        public AppController(IBoardsRepository repository, SignInManager<BoardsUser> signInManager)
+        public AppController(IBoardsRepository repository, SignInManager<BoardsUser> signInManager) : base(repository)
         {
-            _repository = repository;
             _signInManager = signInManager;
         }
 
@@ -67,12 +66,28 @@ namespace Boards.Controllers.Web
             return View();
         }
 
+        [Authorize]
+        [HttpGet("/boards/{id}/categories")]
         public IActionResult Categories()
         {
+            try
+            {
+                _assertUserAccessToBoard();
+            }
+            catch(Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return HttpNotFound();
+            }
             return View();
         }
 
         public IActionResult Board()
+        {
+            return View();
+        }
+
+        public IActionResult PageNotFound()
         {
             return View();
         }

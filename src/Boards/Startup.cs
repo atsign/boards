@@ -97,6 +97,11 @@ namespace Boards
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "App", action = "Index" }
                 );
+                config.MapRoute(
+                    name: "404 - Page Not Found",
+                    template: "{*url}",
+                    defaults: new { controller = "App", action = "PageNotFound" }
+                );
             });
 
             Mapper.Initialize(config =>

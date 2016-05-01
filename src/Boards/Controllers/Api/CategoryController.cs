@@ -16,14 +16,12 @@ namespace Boards.Controllers.Api
 {
     [Authorize]
     [Route("api/boards/{id}/categories")]
-    public class CategoryController : Controller
+    public class CategoryController : BoardsBaseController
     {
         private ILogger<BoardController> _logger;
-        private IBoardsRepository _repository;
 
-        public CategoryController(IBoardsRepository repository, ILogger<BoardController> logger)
+        public CategoryController(IBoardsRepository repository, ILogger<BoardController> logger) : base(repository)
         {
-            _repository = repository;
             _logger = logger;
         }
 
@@ -138,21 +136,6 @@ namespace Boards.Controllers.Api
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { message = "Failed", exception = ex.Message });
             }
-        }
-
-        private void _assertUserAccessToBoard()
-        {
-            int id;
-            if (Int32.TryParse((string)RouteData.Values["id"], out id))
-            {
-                Board thisBoard = _repository.GetBoardForUser(id, User.Identity.Name);
-                if (thisBoard != null)
-                {
-                    return;
-                }
-            }
-
-            throw new Exception($"User {User.Identity.Name} does not have access to board with ID {id}");
         }
     }
 }
