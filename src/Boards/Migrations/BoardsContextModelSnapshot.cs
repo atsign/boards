@@ -92,6 +92,20 @@ namespace Boards.Migrations
                     b.HasKey("Id");
                 });
 
+            modelBuilder.Entity("Boards.Models.Category", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<int>("BoardId");
+
+                b.Property<string>("Name");
+
+                b.Property<int>("Order");
+
+                b.HasKey("Id");
+            });
+
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
