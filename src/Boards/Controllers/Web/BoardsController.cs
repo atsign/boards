@@ -30,8 +30,7 @@ namespace Boards.Controllers.Web
             {
                 _assertUserAccessToBoard();
 
-                int boardId = int.Parse((string)RouteData.Values["id"]);
-                var thisBoard = _repository.GetBoardForUser(boardId, User.Identity.Name);
+                Board thisBoard = _getCurrentBoard();
 
                 ViewBag.BoardName = thisBoard.Name;
                 ViewBag.BoardId = thisBoard.Id;
@@ -40,14 +39,35 @@ namespace Boards.Controllers.Web
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return HttpNotFound();
+                return RedirectToAction("PageNotFound", "App");
             }
         }
 
         [HttpGet("{id}")]
         public IActionResult Board()
         {
-            return View();
+            try
+            {
+                _assertUserAccessToBoard();
+
+                Board thisBoard = _getCurrentBoard();
+
+                ViewBag.BoardName = thisBoard.Name;
+                ViewBag.BoardId = thisBoard.Id;
+                ViewBag.BoardDescription = thisBoard.Description;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return RedirectToAction("PageNotFound", "App");
+            }
+        }
+
+        private Board _getCurrentBoard()
+        {
+            int boardId = int.Parse((string)RouteData.Values["id"]);
+            return _repository.GetBoardForUser(boardId, User.Identity.Name);
         }
     }
 }

@@ -6,7 +6,7 @@
     <div class="wrap narrow" id="categories-list-page">
         <div class="gencon">
             <h1>@ViewBag.BoardName Categories</h1>
-            <a href="/board" class="back">Back to @ViewBag.BoardName</a>
+            <a href="@Url.Action("Board", "Boards", new { id = ViewBag.BoardId })" class="back">Back to @ViewBag.BoardName</a>
             <div id="list-pane">
                 <button ng-click="categoriesCtrl.newCategoryClicked()"><i class="fa fa-plus"></i> New Category</button>
                 <categories-list board-id="@ViewBag.BoardId">

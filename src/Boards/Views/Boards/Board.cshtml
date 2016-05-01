@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Reporting System Board";
+    ViewBag.Title = ViewBag.BoardName;
 }
 
 <div class="wrap">
     <div id="board-info">
-        <h1>Reporting System Board</h1>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <h1>@ViewBag.BoardName</h1>
+        <p>@ViewBag.BoardDescription</p>
     </div>
     <div id="board-controls">
         <button onclick="$('#modal').css('display', 'flex');" class="new-item"><i class="fa fa-plus"></i> New Item</button>
-        <a href="/categories" class="cta-button categories">Categories</a>
+        <a href="@Url.Action("Categories", "Boards", new { id = ViewBag.BoardId })" class="cta-button categories">Categories</a>
     </div>
     <div id="board">
         <button class="add-phase" onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i></button>
