@@ -1,0 +1,24 @@
+<div id="modal-content">
+    <form novalidate name="form">
+        <button type="button" id="modal-close" ng-click="categoriesModal.closeModal()"><i class="fa fa-times"></i></button>
+        <h2>{{modalTitle}}</h2>
+        <div class="form-message" ng-show="categoryModal.serverErrorMessage.length > 0">
+            {{categoryModal.serverErrorMessage}}
+        </div>
+        <label for="category-name-input">Name</label>
+        <input type="text" value="" id="category-name-input" name="categoryNameInput" ng-model="categoriesModal.name" ng-disabled="categoriesModal.saving" required ng-maxlength="100" />
+        <div class="form-message" ng-show="form.$submitted || form.categoryNameInput.$touched">
+            <div ng-show="form.categoryNameInput.$error.required">Category name is required</div>
+            <div ng-show="form.categoryNameInput.$error.maxlength">Category name must be 100 characters or less</div>
+        </div>
+        <label>Color</label>
+        <div id="category-color-picker">
+            <div ng-repeat="i in [1,2,3,4,5,6,7,8] track by $index"
+                 ng-class="'color color-' + i + (modalColorCode === i ? ' selected' : '')"
+                 ng-click="categoriesModal.selectColorCode(i)">
+                <i class="fa fa-check-circle-o"></i>
+            </div>
+        </div>
+        <button type="submit" ng-click="form.$valid && categoriesModal.saveClicked(categoriesModal.name, modalColorCode, categoriesModal.id)" ng-disabled="categoriesModal.saving"><span ng-bind-html="categoriesModal.ctaText"></span></button>
+    </form>
+</div>

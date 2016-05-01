@@ -28,6 +28,8 @@ define(['angular'], function (angular) {
             };
 
             categoriesList.reloadList();
+
+            $scope.$on('reloadList', categoriesList.reloadList);
         })
     ;
 });

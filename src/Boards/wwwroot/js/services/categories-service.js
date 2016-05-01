@@ -14,6 +14,15 @@ define(['angular'], function (angular) {
             categoriesService.deleteCategory = function (categoryId, boardId) {
                 return $http.delete('/api/boards/' + boardId + '/categories/' + categoryId);
             };
+
+            categoriesService.addCategory = function (name, colorCode, boardId) {
+                return $http.post('/api/boards/' + boardId + '/categories', {
+                    name: name,
+                    colorCode: colorCode
+                }).then(function (results) {
+                    return results.data;
+                });
+            };
 /*
             boardsService.addBoard = function (name, description) {
                 return $http.post('/api/boards', {
