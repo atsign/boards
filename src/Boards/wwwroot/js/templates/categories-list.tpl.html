@@ -1,0 +1,12 @@
+<button onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i> New Category</button>
+<ul>
+    <li ng-repeat="category in categoriesList.items" ng-class="'category category-' + category.colorCode">
+        <a href="#">{{category.name}}</a>
+        <span class="controls">
+            <i class="fa fa-trash-o"></i>
+        </span>
+    </li>
+</ul>
+<p class="message" ng-hide="categoriesList.haveLoaded">
+    <em><i class="fa fa-spinner fa-spin"></i> Loading Boards</em>
+</p>

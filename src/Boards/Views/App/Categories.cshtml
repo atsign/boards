@@ -1,61 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Reporting System Categories";
+    ViewBag.Title = ViewBag.BoardName;
 }
 
-<div class="wrap narrow" id="categories-list-page">
-    <div class="gencon">
-        <h1>Reporting System Categories</h1>
-        <a href="/board" class="back">Back to Reporting System Board</a>
-        <div id="list-pane">
-            <button onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i> New Category</button>
-            <ul>
-                <li class="category category-1">
-                   <a href="#">UX Task</a>
-                    <span class="controls">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li class="category category-5">
-                    <a href="#">Front-End Development Task</a>
-                    <span class="controls">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li class="category category-6">
-                    <a href="#">Back-End Bug Fix</a>
-                    <span class="controls">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-                <li class="category category-8">
-                    <a href="#">Deployment Task</a>
-                    <span class="controls">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                </li>
-            </ul>
+<div ng-controller="CategoriesCtrl as categoriesCtrl">
+    <div class="wrap narrow" id="categories-list-page">
+        <div class="gencon">
+            <h1>@ViewBag.BoardName Categories</h1>
+            <a href="/board" class="back">Back to @ViewBag.BoardName</a>
+            <div id="list-pane">
+                <categories-list board-id="@ViewBag.BoardId">
+                    <p class="message">
+                        <em><i class="fa fa-spinner fa-spin"></i> Loading Categories</em>
+                    </p>
+                </categories-list>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" style="display: none;">
+        <div id="modal-content">
+            <button id="modal-close" onclick="$('#modal').css('display', 'none');"><i class="fa fa-times"></i></button>
+            <h2>Add a Category</h2>
+            <label for="category-name-input">Name</label>
+            <input type="text" value="" id="category-name-input" name="category-name-input" />
+            <label>Color</label>
+            <div id="category-color-picker">
+                <div class="color color-1 selected"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-2"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-3"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-4"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-5"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-6"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-7"><i class="fa fa-check-circle-o"></i></div>
+                <div class="color color-8"><i class="fa fa-check-circle-o"></i></div>
+            </div>
+            <button>Save</button>
         </div>
     </div>
 </div>
-
-<div id="modal" style="display: none;">
-    <div id="modal-content">
-        <button id="modal-close" onclick="$('#modal').css('display', 'none');"><i class="fa fa-times"></i></button>
-        <h2>Add a Category</h2>
-        <label for="category-name-input">Name</label>
-        <input type="text" value="" id="category-name-input" name="category-name-input" />
-        <label>Color</label>
-        <div id="category-color-picker">
-            <div class="color color-1 selected"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-2"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-3"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-4"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-5"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-6"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-7"><i class="fa fa-check-circle-o"></i></div>
-            <div class="color color-8"><i class="fa fa-check-circle-o"></i></div>
-        </div>
-        <button>Save</button>
-    </div>
-</div>
-

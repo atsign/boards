@@ -73,13 +73,19 @@ namespace Boards.Controllers.Web
             try
             {
                 _assertUserAccessToBoard();
+
+                int boardId = int.Parse((string)RouteData.Values["id"]);
+                var thisBoard = _repository.GetBoardForUser(boardId, User.Identity.Name);
+
+                ViewBag.BoardName = thisBoard.Name;
+                ViewBag.BoardId = thisBoard.Id;
+                return View();
             }
             catch(Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return HttpNotFound();
             }
-            return View();
         }
 
         public IActionResult Board()

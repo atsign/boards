@@ -13,11 +13,19 @@
         angular.module('boards-app', []);
         require([
             'services/boards-service',
+            'services/categories-service',
+
             'controllers/boards-ctrl',
             'controllers/boards-list-ctrl',
             'controllers/boards-modal-ctrl',
+
+            'controllers/categories-ctrl',
+            'controllers/categories-list-ctrl',
+
             'directives/boards-list-directive',
-            'directives/boards-modal-directive'
+            'directives/boards-modal-directive',
+
+            'directives/categories-list-directive'
         ], function () {
             angular.bootstrap(document, ['boards-app']);
         });
