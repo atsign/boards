@@ -1,6 +1,6 @@
 <ul>
     <li ng-repeat="category in categoriesList.items" ng-class="'category category-' + category.colorCode">
-        <a href="#">{{category.name}}</a>
+        <a href="#" ng-click="categoriesList.updateCategory(category.id, category.name, category.colorCode)">{{category.name}}</a>
         <span class="controls" ng-if="categoriesList.items.length > 1">
             <i class="fa fa-trash-o" ng-click="categoriesList.deleteCategory(category.id, category.name)"></i>
         </span>

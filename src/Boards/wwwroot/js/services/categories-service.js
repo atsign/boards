@@ -23,25 +23,16 @@ define(['angular'], function (angular) {
                     return results.data;
                 });
             };
-/*
-            boardsService.addBoard = function (name, description) {
-                return $http.post('/api/boards', {
+
+            categoriesService.updateBoard = function (categoryId, name, colorCode, boardId) {
+                return $http.put('/api/boards/' + boardId + '/categories', {
+                    id: categoryId,
                     name: name,
-                    description: description
+                    colorCode: colorCode
                 }).then(function (results) {
                     return results.data;
                 });
             };
-
-            boardsService.updateBoard = function (id, name, description) {
-                return $http.put('/api/boards', {
-                    id: id,
-                    name: name,
-                    description: description
-                }).then(function (results) {
-                    return results.data;
-                });
-            };*/
         })
     ;
 });

@@ -28,16 +28,16 @@ define(['angular'], function (angular) {
                 $scope.modalColorCode = colorCode;
             };
 
-            categoriesModal.saveClicked = function (name, colorCode, id) {
+            categoriesModal.saveClicked = function (name, colorCode, categoryId) {
                 var servicePromise;
                 categoriesModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
                 categoriesModal.saving = true;
 
                 if ($scope.modalMethod === 'new') {
                     servicePromise = categoriesService.addCategory(name, colorCode, $scope.boardId);
-                }/* else if ($scope.modalMethod === 'update') {
-                    servicePromise = boardsService.updateBoard(id, name, description);
-                }*/
+                } else if ($scope.modalMethod === 'update') {
+                    servicePromise = categoriesService.updateBoard(categoryId, name, colorCode, $scope.boardId);
+                }
 
                 if (servicePromise) {
                     servicePromise
@@ -55,6 +55,19 @@ define(['angular'], function (angular) {
                     alert("There was a problem saving your category. Please try again.");
                 }
             };
+
+            function openUpdateModal(event, categoryId, name, colorCode) {
+                categoriesModal.name = name;
+                categoriesModal.categoryId = categoryId;
+                categoriesModal.colorCode = colorCode;
+
+                $scope.modalMethod = "update";
+                $scope.modalTitle = "Update Category";
+                $scope.modalColorCode = colorCode;
+                $scope.modalActive = true;
+            };
+
+            $scope.$on('openUpdateModal', openUpdateModal);
 
             /*
 

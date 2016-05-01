@@ -27,6 +27,10 @@ define(['angular'], function (angular) {
                 }
             };
 
+            categoriesList.updateCategory = function (categoryId, name, colorCode) {
+                $scope.$parent.$broadcast('openUpdateModal', categoryId, name, colorCode);
+            };
+
             categoriesList.reloadList();
 
             $scope.$on('reloadList', categoriesList.reloadList);
