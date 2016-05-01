@@ -13,6 +13,20 @@ define(['angular'], function (angular) {
                 });
             };
 
+            categoriesList.deleteCategory = function (categoryId, name) {
+                if (window.confirm("Are you sure you want to delete the '" + name + "' category?")) {
+                    categoriesService.deleteCategory(categoryId, boardId)
+                        .then(function () {
+                            categoriesList.reloadList();
+                        })
+                        .catch(function (err) {
+                            alert('Unable to delete "' + name + '." Please try again.');
+                            console.log(err);
+                        })
+                    ;
+                }
+            };
+
             categoriesList.reloadList();
         })
     ;

@@ -10,6 +10,10 @@ define(['angular'], function (angular) {
                     })
                 ;
             };
+
+            categoriesService.deleteCategory = function (categoryId, boardId) {
+                return $http.delete('/api/boards/' + boardId + '/categories/' + categoryId);
+            };
 /*
             boardsService.addBoard = function (name, description) {
                 return $http.post('/api/boards', {
@@ -18,10 +22,6 @@ define(['angular'], function (angular) {
                 }).then(function (results) {
                     return results.data;
                 });
-            };
-
-            boardsService.deleteBoard = function (id) {
-                return $http.delete('/api/boards/' + id);
             };
 
             boardsService.updateBoard = function (id, name, description) {
