@@ -153,5 +153,13 @@ namespace Boards.Models
         {
             _context.Add(newPhase);
         }
+
+        public IEnumerable<Phase> GetAllBoardPhases(int boardId)
+        {
+            return _context.Phases
+                .Where(q => q.BoardId == boardId)
+                .OrderBy(q => q.Order)
+                .ToList();
+        }
     }
 }

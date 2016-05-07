@@ -108,6 +108,7 @@ namespace Boards
             {
                 config.CreateMap<Board, BoardViewModel>().ReverseMap();
                 config.CreateMap<Category, CategoryViewModel>().ReverseMap();
+                config.CreateMap<Phase, PhaseViewModel>().ReverseMap();
             });
 
             await seeder.EnsureSeedDataAsync();
