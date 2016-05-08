@@ -55,5 +55,31 @@ namespace Boards.Controllers.Api
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
         }
+
+        [HttpDelete("{taskId}")]
+        public JsonResult Delete(int taskId)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+                _repository.RemoveTask(taskId, int.Parse((string)RouteData.Values["id"]));
+
+                if (_repository.SaveAll())
+                {
+                    return Json(new { message = "Success" });
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { message = "Failed" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
     }
 }

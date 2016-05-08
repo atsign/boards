@@ -9,7 +9,6 @@ namespace Boards.Models
         bool SaveAll();
         bool RemoveBoard(int id, string username);
         void UpdateBoard(Board board, string username);
-
         void AddCategory(Category newCategory);
         Board GetBoardForUser(int id, string name);
         void RemoveCategory(int id, int boardId);
@@ -20,5 +19,6 @@ namespace Boards.Models
         void RemovePhase(int id, int boardId);
         void UpdatePhase(Phase phase);
         void AddTask(Task task);
+        void RemoveTask(int id, int boardId);
     }
 }

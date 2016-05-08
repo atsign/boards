@@ -184,8 +184,9 @@ namespace Boards.Models
             }
             else
             {
-                _logger.LogError($"Unable to find phase with ID {id} for board with ID {boardId}");
-                throw new Exception($"Unable to find phase with ID {id} for board with ID {boardId}");
+                string errorMessage = $"Unable to find phase with ID {id} for board with ID {boardId}";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
             }
         }
 
@@ -228,6 +229,25 @@ namespace Boards.Models
             _updateOrderValues(existingTasksInPhase);
 
             _context.Add(task);
+        }
+
+        public void RemoveTask(int id, int boardId)
+        {
+            Task existingTask = _context.Tasks.Where(q => q.Id == id && q.BoardId == boardId).FirstOrDefault();
+            if (existingTask != null)
+            {
+                _context.Remove(existingTask);
+
+                // Update order value of remaining tasks
+                IEnumerable<Task> remainingTasksInPhase = _context.Tasks.Where(q => q.BoardId == boardId && q.Id != id && q.PhaseId == existingTask.PhaseId).OrderBy(q => q.Order).ToList();
+                _updateOrderValues(remainingTasksInPhase);
+            }
+            else
+            {
+                string errorMessage = $"Unable to find task with ID {id} for board with ID {boardId}";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
+            }
         }
 
         private void _updateOrderValues(IEnumerable<BoardSortable> list)
