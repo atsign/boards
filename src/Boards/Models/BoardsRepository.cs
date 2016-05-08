@@ -209,6 +209,27 @@ namespace Boards.Models
             _updateOrderValues(updatedPhases);
         }
 
+        public void AddTask(Task task)
+        {
+            // Assert that the supplied category and phase belong to this board
+            Category categoryForTask = _context.Categories.Where(q => q.Id == task.CategoryId && q.BoardId == task.BoardId).FirstOrDefault();
+            Phase phaseForTask = _context.Phases.Where(q => q.Id == task.PhaseId && q.BoardId == task.BoardId).FirstOrDefault();
+
+            if (categoryForTask == null || phaseForTask == null)
+            {
+                string errorMessage = $"The task's phase and category must belong to the task's board";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
+            }
+
+            // Update existing tasks' order values
+            List<Task> existingTasksInPhase = _context.Tasks.Where(q => q.PhaseId == task.PhaseId).OrderBy(q => q.Order).ToList();
+            existingTasksInPhase.Insert(0, task);
+            _updateOrderValues(existingTasksInPhase);
+
+            _context.Add(task);
+        }
+
         private void _updateOrderValues(IEnumerable<BoardSortable> list)
         {
             int order = 1;

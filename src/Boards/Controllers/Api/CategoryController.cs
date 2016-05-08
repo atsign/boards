@@ -18,9 +18,9 @@ namespace Boards.Controllers.Api
     [Route("api/boards/{id}/categories")]
     public class CategoryController : BoardsBaseController
     {
-        private ILogger<BoardController> _logger;
+        private ILogger<CategoryController> _logger;
 
-        public CategoryController(IBoardsRepository repository, ILogger<BoardController> logger) : base(repository)
+        public CategoryController(IBoardsRepository repository, ILogger<CategoryController> logger) : base(repository)
         {
             _logger = logger;
         }

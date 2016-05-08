@@ -12,6 +12,7 @@ namespace Boards.Models
         public DbSet<Board> Boards { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Phase> Phases { get; set; }
+        public DbSet<Task> Tasks { get; set; }
 
         public BoardsContext()
         {

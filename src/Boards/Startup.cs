@@ -109,9 +109,10 @@ namespace Boards
                 config.CreateMap<Board, BoardViewModel>().ReverseMap();
                 config.CreateMap<Category, CategoryViewModel>().ReverseMap();
                 config.CreateMap<Phase, PhaseViewModel>().ReverseMap();
+                config.CreateMap<Boards.Models.Task, TaskViewModel>().ReverseMap();
             });
 
-            //await seeder.EnsureSeedDataAsync();
+            await seeder.EnsureSeedDataAsync();
 
             loggerFactory.AddDebug(LogLevel.Information);
         }

@@ -14,7 +14,6 @@ namespace Boards.Migrations
             migrationBuilder.DropForeignKey(name: "FK_IdentityUserLogin<string>_BoardsUser_UserId", table: "AspNetUserLogins");
             migrationBuilder.DropForeignKey(name: "FK_IdentityUserRole<string>_IdentityRole_RoleId", table: "AspNetUserRoles");
             migrationBuilder.DropForeignKey(name: "FK_IdentityUserRole<string>_BoardsUser_UserId", table: "AspNetUserRoles");
-            migrationBuilder.DropColumn(name: "Order", table: "Category");
             migrationBuilder.CreateTable(
                 name: "Task",
                 columns: table => new
