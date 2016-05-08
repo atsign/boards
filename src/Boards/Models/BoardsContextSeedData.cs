@@ -17,7 +17,7 @@ namespace Boards.Models
             _userManager = userManager;
         }
 
-        public async Task EnsureSeedDataAsync()
+        public async System.Threading.Tasks.Task EnsureSeedDataAsync()
         {
             if (await _userManager.FindByEmailAsync("test@example.com") == null)
             {

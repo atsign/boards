@@ -56,7 +56,7 @@ namespace Boards
                         {
                             ctx.Response.Redirect(ctx.RedirectUri);
                         }
-                        return Task.FromResult(0);
+                        return System.Threading.Tasks.Task.FromResult(0);
                     }
                 };
             })
@@ -111,7 +111,7 @@ namespace Boards
                 config.CreateMap<Phase, PhaseViewModel>().ReverseMap();
             });
 
-            await seeder.EnsureSeedDataAsync();
+            //await seeder.EnsureSeedDataAsync();
 
             loggerFactory.AddDebug(LogLevel.Information);
         }
