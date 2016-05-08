@@ -85,5 +85,67 @@ namespace Boards.Controllers.Api
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
         }
+
+        [HttpDelete("{phaseId}")]
+        public JsonResult Delete(int phaseId)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+                _repository.RemovePhase(phaseId, int.Parse((string)RouteData.Values["id"]));
+
+                if (_repository.SaveAll())
+                {
+                    return Json(new { message = "Success" });
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { message = "Failed" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
+
+        [HttpPut("")]
+        public JsonResult Put([FromBody] PhaseViewModel vm)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+
+                if (ModelState.IsValid)
+                {
+                    var phase = Mapper.Map<PhaseViewModel, Phase>(vm);
+                    phase.BoardId = int.Parse((string)RouteData.Values["id"]);
+                    _repository.UpdatePhase(phase);
+
+                    if (_repository.SaveAll())
+                    {
+                        return Json(vm);
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(new { message = "Update Failed", exception = ModelState });
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Message = "Invalid phase parameters", ModelState = ModelState });
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
     }
 }

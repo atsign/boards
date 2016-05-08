@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace Boards.Models
 {
-    public class Phase
+    public class Phase : BoardSortable
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Order { get; set; }
         public int BoardId { get; set; }
     }
 }

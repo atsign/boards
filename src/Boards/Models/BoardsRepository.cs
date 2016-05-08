@@ -161,5 +161,62 @@ namespace Boards.Models
                 .OrderBy(q => q.Order)
                 .ToList();
         }
+
+        public void RemovePhase(int id, int boardId)
+        {
+            // TODO: Assert that there are no tasks associated with this phase
+
+            var phaseCount = _context.Phases.Where(q => q.BoardId == boardId).ToList().Count;
+            if (phaseCount < 3)
+            {
+                _logger.LogError($"A board must have at least 2 phases. Phase count was {phaseCount} when trying to delete category with ID {id}");
+                throw new Exception("A board must have at least 2 phases.");
+            }
+
+            var existingPhase = _context.Phases.Where(q => q.Id == id && q.BoardId == boardId).FirstOrDefault();
+            if (existingPhase != null)
+            {
+                _context.Remove(existingPhase);
+
+                // Update order value of remaining phases
+                IEnumerable<Phase> remainingPhases = _context.Phases.Where(q => q.BoardId == boardId && q.Id != id).OrderBy(q => q.Order).ToList();
+                _updateOrderValues(remainingPhases);
+            }
+            else
+            {
+                _logger.LogError($"Unable to find phase with ID {id} for board with ID {boardId}");
+                throw new Exception($"Unable to find phase with ID {id} for board with ID {boardId}");
+            }
+        }
+
+        public void UpdatePhase(Phase phase)
+        {
+            // Assert that the phase ID and the boardId have not been changed
+            var existingPhase = _context.Phases.Where(q => q.Id == phase.Id && q.BoardId == phase.BoardId).FirstOrDefault();
+            if (existingPhase == null)
+            {
+                string errorMessage = $"A phase's ID or its board's ID cannot be altered.";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
+            }
+
+            existingPhase.Name = phase.Name;
+            existingPhase.Order = (phase.Order == 0 ? existingPhase.Order : phase.Order);
+            _context.Update(existingPhase);
+
+            List<Phase> updatedPhases = _context.Phases.Where(q => q.BoardId == phase.BoardId && q.Id != phase.Id).ToList();
+            updatedPhases.Insert(existingPhase.Order - 1, existingPhase);
+            _updateOrderValues(updatedPhases);
+        }
+
+        private void _updateOrderValues(IEnumerable<BoardSortable> list)
+        {
+            int order = 1;
+            foreach (BoardSortable item in list)
+            {
+                item.Order = order++;
+                _context.Update(item);
+            }
+        }
     }
 }
