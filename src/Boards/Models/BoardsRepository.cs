@@ -95,9 +95,14 @@ namespace Boards.Models
 
         public void RemoveCategory(int id, int boardId)
         {
-            // TODO: Assert that there are no tasks associated with this category
+            int taskCount = _context.Tasks.Where(q => q.CategoryId == id && q.BoardId == boardId).ToList().Count;
+            if (taskCount > 0)
+            {
+                _logger.LogError($"Category {id} still had tasks associated with it when attempting to delete it.");
+                throw new Exception("A category cannot be deleted if it still has tasks. Please re-assign or delete the tasks assigned to this category before deleting it.");
+            }
 
-            var categoryCount = _context.Categories.Where(q => q.BoardId == boardId).ToList().Count;
+            int categoryCount = _context.Categories.Where(q => q.BoardId == boardId).ToList().Count;
             if (categoryCount < 2)
             {
                 _logger.LogError($"A board must have at least 1 category. Category count was {categoryCount} when trying to delete category with ID {id}");
@@ -164,7 +169,13 @@ namespace Boards.Models
 
         public void RemovePhase(int id, int boardId)
         {
-            // TODO: Assert that there are no tasks associated with this phase
+            var taskCount = _context.Tasks.Where(q => q.BoardId == boardId && q.PhaseId == id).ToList().Count;
+            if (taskCount > 0)
+            {
+                _logger.LogError($"Phase {id} still had tasks associated with it when attempting to delete it.");
+                throw new Exception("A phase cannot be deleted if it still has tasks. Please re-assign or delete the tasks assigned to this phase before deleting it.");
+
+            }
 
             var phaseCount = _context.Phases.Where(q => q.BoardId == boardId).ToList().Count;
             if (phaseCount < 3)

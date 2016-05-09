@@ -20,8 +20,7 @@ define(['angular'], function (angular) {
                             categoriesList.reloadList();
                         })
                         .catch(function (err) {
-                            alert('Unable to delete "' + name + '." Please try again.');
-                            console.log(err);
+                            alert('Unable to delete "' + name + '." ' + err.data.exception);
                         })
                     ;
                 }
