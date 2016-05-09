@@ -20,5 +20,7 @@ namespace Boards.Models
         void UpdatePhase(Phase phase);
         void AddTask(Task task);
         void RemoveTask(int id, int boardId);
+        void UpdateTask(Task task);
+        IEnumerable<IEnumerable<Task>> GetAllBoardTasks(int id);
     }
 }

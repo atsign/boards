@@ -201,8 +201,10 @@ namespace Boards.Models
                 throw new Exception(errorMessage);
             }
 
+            int phaseCount = _context.Phases.Where(q => q.BoardId == phase.BoardId).ToList().Count;
+
             existingPhase.Name = phase.Name;
-            existingPhase.Order = (phase.Order == 0 ? existingPhase.Order : phase.Order);
+            existingPhase.Order = (phase.Order <= 0 ? existingPhase.Order : Math.Min(phase.Order, phaseCount));
             _context.Update(existingPhase);
 
             List<Phase> updatedPhases = _context.Phases.Where(q => q.BoardId == phase.BoardId && q.Id != phase.Id).ToList();
@@ -212,16 +214,7 @@ namespace Boards.Models
 
         public void AddTask(Task task)
         {
-            // Assert that the supplied category and phase belong to this board
-            Category categoryForTask = _context.Categories.Where(q => q.Id == task.CategoryId && q.BoardId == task.BoardId).FirstOrDefault();
-            Phase phaseForTask = _context.Phases.Where(q => q.Id == task.PhaseId && q.BoardId == task.BoardId).FirstOrDefault();
-
-            if (categoryForTask == null || phaseForTask == null)
-            {
-                string errorMessage = $"The task's phase and category must belong to the task's board";
-                _logger.LogError(errorMessage);
-                throw new Exception(errorMessage);
-            }
+            _assertValidCategoryAndPhase(task);
 
             // Update existing tasks' order values
             List<Task> existingTasksInPhase = _context.Tasks.Where(q => q.PhaseId == task.PhaseId).OrderBy(q => q.Order).ToList();
@@ -250,6 +243,58 @@ namespace Boards.Models
             }
         }
 
+        public void UpdateTask(Task task)
+        {
+            _assertValidCategoryAndPhase(task);
+
+            // Assert that the task ID and the boardId have not been changed
+            var existingTask = _context.Tasks.Where(q => q.Id == task.Id && q.BoardId == task.BoardId).FirstOrDefault();
+            if (existingTask == null)
+            {
+                string errorMessage = $"A task's ID or its board's ID cannot be altered.";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
+            }
+
+            int existingPhaseId = existingTask.PhaseId;
+            int newPhaseId = task.PhaseId;
+            int taskCountInPhase = _context.Tasks.Where(q => q.BoardId == task.BoardId && q.PhaseId == task.PhaseId).ToList().Count;
+
+            // If moving a task to a new phase, allow room for it when calculating maximum order value
+            if (existingPhaseId != newPhaseId)
+            {
+                taskCountInPhase++;
+            }
+
+            existingTask.Name = task.Name;
+            existingTask.Description = task.Description;
+            existingTask.CategoryId = task.CategoryId;
+            existingTask.PhaseId = task.PhaseId;
+            existingTask.Order = (task.Order <= 0 ? 1 : Math.Min(task.Order, taskCountInPhase));
+            _context.Update(existingTask);
+
+            // Update task order values for tasks in both the old and new phases
+            List<Task> updatedTasksOldPhase = _context.Tasks.Where(q => q.BoardId == task.BoardId && q.Id != task.Id && q.PhaseId == existingPhaseId).ToList();
+            List<Task> updatedTasksNewPhase = _context.Tasks.Where(q => q.BoardId == task.BoardId && q.Id != task.Id && q.PhaseId == newPhaseId).ToList();
+            updatedTasksNewPhase.Insert(existingTask.Order - 1, existingTask);
+            _updateOrderValues(updatedTasksOldPhase);
+            _updateOrderValues(updatedTasksNewPhase);
+        }
+
+        public IEnumerable<IEnumerable<Task>> GetAllBoardTasks(int id)
+        {
+            List<List<Task>> allTasks = new List<List<Task>>();
+
+            List<Phase> phasesForBoard = _context.Phases.Where(q => q.BoardId == id).OrderBy(q => q.Order).ToList();
+            foreach (Phase phase in phasesForBoard)
+            {
+                List<Task> tasks = _context.Tasks.Where(q => q.PhaseId == phase.Id && q.BoardId == id).OrderBy(q => q.Order).ToList();
+                allTasks.Add(tasks);
+            }
+
+            return allTasks;
+        }
+
         private void _updateOrderValues(IEnumerable<BoardSortable> list)
         {
             int order = 1;
@@ -257,6 +302,19 @@ namespace Boards.Models
             {
                 item.Order = order++;
                 _context.Update(item);
+            }
+        }
+
+        private void _assertValidCategoryAndPhase(Task task)
+        {
+            Category categoryForTask = _context.Categories.Where(q => q.Id == task.CategoryId && q.BoardId == task.BoardId).FirstOrDefault();
+            Phase phaseForTask = _context.Phases.Where(q => q.Id == task.PhaseId && q.BoardId == task.BoardId).FirstOrDefault();
+
+            if (categoryForTask == null || phaseForTask == null)
+            {
+                string errorMessage = $"The task's phase and category must belong to the task's board";
+                _logger.LogError(errorMessage);
+                throw new Exception(errorMessage);
             }
         }
     }

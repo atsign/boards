@@ -81,5 +81,57 @@ namespace Boards.Controllers.Api
                 return Json(new { message = "Failed", exception = ex.Message });
             }
         }
+
+        [HttpPut("")]
+        public JsonResult Put([FromBody] TaskViewModel vm)
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+
+                if (ModelState.IsValid)
+                {
+                    var task = Mapper.Map<TaskViewModel, Models.Task>(vm);
+                    task.BoardId = int.Parse((string)RouteData.Values["id"]);
+                    _repository.UpdateTask(task);
+
+                    if (_repository.SaveAll())
+                    {
+                        return Json(vm);
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(new { message = "Update Failed", exception = ModelState });
+                    }
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json(new { Message = "Invalid task parameters", ModelState = ModelState });
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
+
+        [HttpGet("")]
+        public JsonResult Get()
+        {
+            try
+            {
+                _assertUserAccessToBoard();
+                return Json(_repository.GetAllBoardTasks(int.Parse((string)RouteData.Values["id"])));
+            }
+
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed", exception = ex.Message });
+            }
+        }
     }
 }
