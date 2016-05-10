@@ -23,11 +23,15 @@
             'controllers/categories-list-ctrl',
             'controllers/categories-modal-ctrl',
 
+            'controllers/single-board-ctrl',
+
             'directives/boards-list-directive',
             'directives/boards-modal-directive',
 
             'directives/categories-list-directive',
-            'directives/categories-modal-directive'
+            'directives/categories-modal-directive',
+
+            'directives/single-board-directive'
         ], function () {
             angular.bootstrap(document, ['boards-app']);
         });

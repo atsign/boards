@@ -100,6 +100,18 @@
     .item.category-6:before { background-color: $color-category-6; }
     .item.category-7:before { background-color: $color-category-7; }
     .item.category-8:before { background-color: $color-category-8; }
+
+    .message {
+        color: $color-rolling-stone;
+        font-style: italic;
+        padding: 10px;
+    }
+
+    .empty{
+        color: $color-rolling-stone;
+        font-size: 15px;
+        font-style: italic;
+    }
 }
 
 #task-description-textarea {

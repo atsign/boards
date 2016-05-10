@@ -9,7 +9,7 @@ using Boards.Models;
 
 namespace Boards.Controllers
 {
-    public class BoardsBaseController : Controller
+    abstract public class BoardsBaseController : Controller
     {
         protected IBoardsRepository _repository;
 
@@ -18,17 +18,19 @@ namespace Boards.Controllers
             _repository = repository;
         }
 
-        // GET: /<controller>/
         protected void _assertUserAccessToBoard()
         {
             int id;
-            if (Int32.TryParse((string)RouteData.Values["id"], out id))
+            Int32.TryParse((string)RouteData.Values["id"], out id);
+            _assertUserAccessToBoard(id);
+        }
+
+        protected void _assertUserAccessToBoard(int id)
+        {
+            Board thisBoard = _repository.GetBoardForUser(id, User.Identity.Name);
+            if (thisBoard != null)
             {
-                Board thisBoard = _repository.GetBoardForUser(id, User.Identity.Name);
-                if (thisBoard != null)
-                {
-                    return;
-                }
+                return;
             }
 
             throw new Exception($"User {User.Identity.Name} does not have access to board with ID {id}");

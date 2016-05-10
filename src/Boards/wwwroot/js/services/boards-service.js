@@ -11,6 +11,14 @@ define(['angular'], function (angular) {
                 ;
             };
 
+            boardsService.getBoardData = function (id) {
+                return $http.get('/api/boards/' + id)
+                    .then(function (results) {
+                        return results.data;
+                    })
+                ;
+            };
+
             boardsService.addBoard = function (name, description) {
                 return $http.post('/api/boards', {
                     name: name,

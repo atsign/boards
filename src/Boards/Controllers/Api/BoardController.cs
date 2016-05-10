@@ -14,14 +14,12 @@ namespace Boards.Controllers.Api
 {
     [Authorize]
     [Route("api/boards")]
-    public class BoardController : Controller
+    public class BoardController : BoardsBaseController
     {
         private ILogger<BoardController> _logger;
-        private IBoardsRepository _repository;
 
-        public BoardController(IBoardsRepository repository, ILogger<BoardController> logger)
+        public BoardController(IBoardsRepository repository, ILogger<BoardController> logger) : base(repository)
         {
-            _repository = repository;
             _logger = logger;
         }
 
@@ -125,6 +123,23 @@ namespace Boards.Controllers.Api
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json(new { Message = serverErrorMessage, ModelState = ModelState });
+        }
+
+        [HttpGet("{id}")]
+        public JsonResult GetBoardData(int id)
+        {
+            try
+            {
+                _assertUserAccessToBoard(id);
+                var boardData = _repository.GetBoardData(id);
+                return Json(boardData);
+            }
+
+            catch(Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Failed to get board data", exception = ex.Message });
+            }
         }
 
         private void _addDefaultCategory(Board newBoard)

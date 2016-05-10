@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.Entity;
+﻿using AutoMapper;
+using Boards.ViewModels;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -174,7 +176,6 @@ namespace Boards.Models
             {
                 _logger.LogError($"Phase {id} still had tasks associated with it when attempting to delete it.");
                 throw new Exception("A phase cannot be deleted if it still has tasks. Please re-assign or delete the tasks assigned to this phase before deleting it.");
-
             }
 
             var phaseCount = _context.Phases.Where(q => q.BoardId == boardId).ToList().Count;
@@ -327,6 +328,24 @@ namespace Boards.Models
                 _logger.LogError(errorMessage);
                 throw new Exception(errorMessage);
             }
+        }
+
+        public IEnumerable<object> GetBoardData(int id)
+        {
+            List<Object> returnList = new List<Object>();
+            List<Phase> phases = _context.Phases.Where(q => q.BoardId == id).OrderBy(q => q.Order).ToList();
+
+            foreach (Phase phase in phases)
+            {
+                List<Task> tasks = _context.Tasks.Where(q => q.BoardId == id && q.PhaseId == phase.Id).OrderBy(q => q.Order).ToList();
+                returnList.Add(new
+                {
+                    phase = Mapper.Map<PhaseViewModel>(phase),
+                    tasks = Mapper.Map<IEnumerable<TaskViewModel>>(tasks)
+                });
+            }
+
+            return returnList;
         }
     }
 }
