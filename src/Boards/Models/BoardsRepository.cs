@@ -145,7 +145,7 @@ namespace Boards.Models
             {
                 return _context.Categories
                     .Where(q => q.BoardId == boardId)
-                    .OrderBy(q => q.ColorCode)
+                    .OrderBy(q => q.Name)
                     .ToList();
             }
             catch (Exception ex)

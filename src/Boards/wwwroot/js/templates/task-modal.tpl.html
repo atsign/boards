@@ -2,14 +2,21 @@
     <form novalidate name="form">
         <button class="modal-close" ng-click="taskModal.closeModal()"><i class="fa fa-times"></i></button>
         <h2>{{taskModalTitle}}</h2>
+        <button type="submit"
+                class="delete"
+                ng-if="taskModalMethod == 'update'"
+                ng-click="taskModal.deleteClicked()"
+                ng-disabled="taskModal.deleting">
+            Delete Task
+        </button>
         <div class="form-message" ng-show="taskModal.serverErrorMessage.length > 0">
             {{taskModal.serverErrorMessage}}
         </div>
         <label for="task-name-input">Name</label>
-        <input type="text" value="" id="task-name-input" name="taskNameInput" ng-model="taskModal.name" ng-disabled="taskModal.saving" required ng-maxlength="50" />
+        <input type="text" value="" id="task-name-input" name="taskNameInput" ng-model="taskModal.name" ng-disabled="taskModal.saving" required ng-maxlength="100" />
         <div class="form-message" ng-show="form.$submitted || form.taskNameInput.$touched">
             <div ng-show="form.taskNameInput.$error.required">Task name is required</div>
-            <div ng-show="form.taskNameInput.$error.maxlength">Task name must be less than 50 characters</div>
+            <div ng-show="form.taskNameInput.$error.maxlength">Task name must be less than 100 characters</div>
         </div>
         <label for="task-description-textarea">Description</label>
         <textarea name="taskDescriptionTextarea" id="task-description-textarea" ng-model="taskModal.description" ng-disabled="taskModal.saving" ng-maxlength="1024"></textarea>

@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('BoardsModalCtrl', function (boardsService, $sce, $scope) {
+        .controller('BoardsModalCtrl', function (boardsService, $sce, $scope, $window) {
             var boardsModal = this;
 
             boardsModal.ctaText = $sce.trustAsHtml("Save");
@@ -23,9 +23,8 @@ define(['angular'], function (angular) {
                 }
 
                 servicePromise
-                    .then(function () {
-                        resetModal();
-                        $scope.$parent.$broadcast('reloadList');
+                    .then(function (newBoard) {
+                        $window.location.href = "/boards/" + newBoard.id;
                     }, function (err) {
                         boardsModal.serverErrorMessage = err.data.message;
                         boardsModal.saving = false;

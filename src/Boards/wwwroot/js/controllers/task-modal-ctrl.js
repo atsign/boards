@@ -54,9 +54,26 @@ define(['angular'], function (angular) {
                 ;
             };
 
+            taskModal.deleteClicked = function () {
+                if (! window.confirm("Are you sure you want to delete this task?")) {
+                    return;
+                }
+
+                taskService.deleteTask(taskModal.taskId, $scope.boardId)
+                    .then(function () {
+                        resetModal();
+                        $scope.resetBoard();
+                    })
+                    .catch(function (err) {
+                        console.error(err);
+                        alert("There was an issue deleting this task. Please try again.");
+                    })
+                ;
+            };
+
             $scope.$on('openUpdateTaskModal', function (e, taskViewModel) {
                 $scope.taskModalActive = true;
-                $scope.taskModalTitle = "Update Task";
+                $scope.taskModalTitle = "Task Details";
                 $scope.taskModalMethod = "update";
 
                 taskModal.name = taskViewModel.name;

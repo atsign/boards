@@ -30,6 +30,20 @@
         float: none;
         width: 100%;
     }
+
+    button.delete {
+        background-color: $color-flamingo;
+        color: $color-white;
+        display: inline-block;
+        font-size: 16px;
+        margin-bottom: 20px;
+        width: auto;
+
+        &:hover {
+            background-color: darken($color-flamingo, 20%);
+            color: $color-alto;
+        }
+    }
 }
 
 button.modal-close {

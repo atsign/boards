@@ -18,6 +18,10 @@ define(['angular'], function (angular) {
                     })
                 ;
             };
+
+            taskService.deleteTask = function (id, boardId) {
+                return $http.delete('/api/boards/' + boardId + '/tasks/' + id);
+            }
         })
     ;
 });
