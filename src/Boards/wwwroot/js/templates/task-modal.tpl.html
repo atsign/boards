@@ -23,7 +23,7 @@
                 ng-disabled="taskModal.saving">
         </select>
         <button type="submit"
-                ng-click="form.$valid && taskModal.saveClicked(taskModal.name, taskModal.description, taskModal.category.id)"
+                ng-click="form.$valid && taskModal.saveClicked(taskModal.name, taskModal.description, taskModal.category.id, taskModal.phaseId, taskModal.order, taskModal.taskId)"
                 ng-disabled="taskModal.saving">
             <span ng-bind-html="taskModal.ctaText"></span>
         </button>

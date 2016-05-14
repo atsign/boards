@@ -20,7 +20,6 @@ define(['angular'], function (angular) {
                 ;
             };
 
-
             boardCtrl.newTaskClicked = function () {
                 boardCtrl.taskModalActive = true;
                 boardCtrl.taskModalTitle = "Add a Task";
@@ -30,6 +29,7 @@ define(['angular'], function (angular) {
             boardCtrl.updateBoardData();
 
             $scope.updateBoardData = boardCtrl.updateBoardData;
+            $scope.openTaskModal = boardCtrl.openTaskModal;
         });
     ;
 });

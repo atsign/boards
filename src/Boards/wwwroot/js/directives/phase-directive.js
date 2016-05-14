@@ -8,7 +8,8 @@ define(['angular'], function (angular) {
                 scope: {
                     item: '&',
                     boardId: '@',
-                    phaseCount: "@"
+                    phaseCount: '@',
+                    boardCategories: '&'
                 }
             };
         })

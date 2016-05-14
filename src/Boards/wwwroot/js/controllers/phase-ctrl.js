@@ -1,25 +1,25 @@
 define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
     angular.module('boards-app')
-        .controller('PhaseCtrl', function ($scope, $element, taskService) {
+        .controller('PhaseCtrl', function ($scope, $element, $filter, taskService) {
             var phaseCtrl = this;
 
             phaseCtrl.item = $scope.item;
             phaseCtrl.boardId = $scope.boardId;
             phaseCtrl.phaseCount = $scope.phaseCount;
 
-            phaseCtrl.itemClicked = function () {
-                console.log('Item Clicked');
+            phaseCtrl.getCategoryColor = function (categoryId) {
+                var category = $filter('getCategoryById')($scope.boardCategories(), categoryId);
+                return category.colorCode;
+            };
+
+            phaseCtrl.itemClicked = function (e) {
+                var taskViewModel = getTaskViewModelFromDom(e.target, e.target.parentNode);
+                $scope.$parent.$parent.$broadcast('openUpdateTaskModal', taskViewModel);
             };
 
             phaseCtrl.onTaskChange = function (e) {
-                var taskViewModel = {
-                    id: e.item.attributes['data-task-id'].value,
-                    name: e.item.attributes['data-task-name'].value,
-                    description: e.item.attributes['data-task-description'].value,
-                    categoryId: e.item.attributes['data-category-id'].value,
-                    phaseId: e.srcElement.attributes['data-phase-id'].value,
-                    order: e.newIndex + 1
-                };
+                e.item.attributes['data-order'].value = e.newIndex + 1;
+                var taskViewModel = getTaskViewModelFromDom(e.item, e.srcElement);
 
                 taskService.updateTask(taskViewModel, phaseCtrl.boardId)
                     .catch(function () {
@@ -37,6 +37,17 @@ define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
                 onAdd: phaseCtrl.onTaskChange,
                 onUpdate: phaseCtrl.onTaskChange
             });
+
+            function getTaskViewModelFromDom(taskElem, phaseElem) {
+                return {
+                    id: taskElem.attributes['data-task-id'].value,
+                    name: taskElem.attributes['data-task-name'].value,
+                    description: taskElem.attributes['data-task-description'].value,
+                    categoryId: taskElem.attributes['data-category-id'].value,
+                    phaseId: phaseElem.attributes['data-phase-id'].value,
+                    order: taskElem.attributes['data-order'].value
+                }
+            }
         });
     ;
 });

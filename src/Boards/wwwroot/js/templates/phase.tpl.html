@@ -5,13 +5,14 @@
     </span>
 </h2>
 <div class="items" data-phase-id="{{phaseCtrl.item().phase.id}}">
-    <div class="item category-{{task.categoryId}}"
+    <div class="item category-{{phaseCtrl.getCategoryColor(task.categoryId)}}"
          data-task-id="{{task.id}}"
          data-task-name="{{task.name}}"
          data-task-description="{{task.description}}"
          data-category-id="{{task.categoryId}}"
+         data-order="{{task.order}}"
          ng-repeat="task in phaseCtrl.item().tasks"
-         ng-click="phaseCtrl.itemClicked()">
+         ng-click="phaseCtrl.itemClicked($event)">
             {{task.name}}
     </div>
 </div>

@@ -9,6 +9,7 @@
          item="item"
          board-id="{{boardCtrl.boardId}}"
          phase-count="{{boardCtrl.taskData.length}}"
+         board-categories="boardCtrl.categories"
          ng-repeat="item in boardCtrl.taskData">
     </div>
     <p class="message" ng-hide="boardCtrl.hasLoaded">

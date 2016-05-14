@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('TaskModalCtrl', function (taskService, $scope, $sce) {
+        .controller('TaskModalCtrl', function (taskService, $scope, $sce, $filter) {
             var taskModal = this;
 
             taskModal.ctaText = $sce.trustAsHtml("Save");
@@ -16,7 +16,7 @@ define(['angular'], function (angular) {
             });
 
             taskModal.closeModal = function () {
-                $scope.taskModalActive = false;
+                resetModal();
             };
 
             taskModal.saveClicked = function (name, description, categoryId, phaseId, order, taskId) {
@@ -34,6 +34,11 @@ define(['angular'], function (angular) {
                     taskViewModel.phaseId = $scope.defaultPhaseId;
                     taskViewModel.order = 1;
                     servicePromise = taskService.addTask(taskViewModel, $scope.boardId);
+                } else if ($scope.taskModalMethod === 'update') {
+                    taskViewModel.phaseId = phaseId;
+                    taskViewModel.order = order;
+                    taskViewModel.id = taskId;
+                    servicePromise = taskService.updateTask(taskViewModel, $scope.boardId);
                 }
 
                 servicePromise
@@ -49,6 +54,19 @@ define(['angular'], function (angular) {
                 ;
             };
 
+            $scope.$on('openUpdateTaskModal', function (e, taskViewModel) {
+                $scope.taskModalActive = true;
+                $scope.taskModalTitle = "Update Task";
+                $scope.taskModalMethod = "update";
+
+                taskModal.name = taskViewModel.name;
+                taskModal.description = taskViewModel.description;
+                taskModal.category = $filter('getCategoryById')($scope.boardCategories(), taskViewModel.categoryId);
+                taskModal.phaseId = taskViewModel.phaseId;
+                taskModal.order = taskViewModel.order;
+                taskModal.taskId = taskViewModel.id;
+            });
+
             function resetModal() {
                 taskModal.name = '';
                 taskModal.description = '';
@@ -59,7 +77,7 @@ define(['angular'], function (angular) {
 
                 $scope.taskModalActive = false;
 
-                $scope.form.$setPristine()
+                $scope.form.$setPristine();
                 $scope.form.$setUntouched();
             }
         })

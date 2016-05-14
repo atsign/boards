@@ -38,6 +38,22 @@
             'directives/phase-directive',
             'directives/task-modal-directive'
         ], function () {
+            angular.module('boards-app')
+                .filter('getCategoryById', function () {
+                    return function (categories, id) {
+                        var foundCategory;
+
+                        categories.forEach(function (category) {
+                            if (category.id == id) {
+                                foundCategory = category;
+                            }
+                        });
+
+                        return foundCategory;
+                    }
+                })
+            ;
+
             angular.bootstrap(document, ['boards-app']);
         });
     };
