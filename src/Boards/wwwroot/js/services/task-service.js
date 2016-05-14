@@ -10,6 +10,14 @@ define(['angular'], function (angular) {
                     })
                 ;
             }
+
+            taskService.addTask = function (taskViewModel, boardId) {
+                return $http.post('/api/boards/' + boardId + '/tasks', taskViewModel)
+                    .then(function (results) {
+                        return results.data
+                    })
+                ;
+            }
         })
     ;
 });

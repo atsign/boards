@@ -1,0 +1,31 @@
+<div class="modal-content">
+    <form novalidate name="form">
+        <button class="modal-close" ng-click="taskModal.closeModal()"><i class="fa fa-times"></i></button>
+        <h2>{{taskModalTitle}}</h2>
+        <div class="form-message" ng-show="taskModal.serverErrorMessage.length > 0">
+            {{taskModal.serverErrorMessage}}
+        </div>
+        <label for="task-name-input">Name</label>
+        <input type="text" value="" id="task-name-input" name="taskNameInput" ng-model="taskModal.name" ng-disabled="taskModal.saving" required ng-maxlength="50" />
+        <div class="form-message" ng-show="form.$submitted || form.taskNameInput.$touched">
+            <div ng-show="form.taskNameInput.$error.required">Task name is required</div>
+            <div ng-show="form.taskNameInput.$error.maxlength">Task name must be less than 50 characters</div>
+        </div>
+        <label for="task-description-textarea">Description</label>
+        <textarea name="taskDescriptionTextarea" id="task-description-textarea" ng-model="taskModal.description" ng-disabled="taskModal.saving" ng-maxlength="1024"></textarea>
+        <div class="form-message" ng-show="form.$submitted || form.taskDescriptionTextarea.$touched">
+            <div ng-show="form.taskDescriptionTextarea.$error.maxlength">Task description must be less than 1024 characters</div>
+        </div>
+        <label for="task-category-select">Category</label>
+        <select id="task-category-select"
+                ng-model="taskModal.category"
+                ng-options="category.name for category in boardCategories() track by category.id"
+                ng-disabled="taskModal.saving">
+        </select>
+        <button type="submit"
+                ng-click="form.$valid && taskModal.saveClicked(taskModal.name, taskModal.description, taskModal.category.id)"
+                ng-disabled="taskModal.saving">
+            <span ng-bind-html="taskModal.ctaText"></span>
+        </button>
+    </form>
+</div>

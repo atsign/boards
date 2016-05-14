@@ -26,6 +26,7 @@
 
             'controllers/single-board-ctrl',
             'controllers/phase-ctrl',
+            'controllers/task-modal-ctrl',
 
             'directives/boards-list-directive',
             'directives/boards-modal-directive',
@@ -34,7 +35,8 @@
             'directives/categories-modal-directive',
 
             'directives/single-board-directive',
-            'directives/phase-directive'
+            'directives/phase-directive',
+            'directives/task-modal-directive'
         ], function () {
             angular.bootstrap(document, ['boards-app']);
         });

@@ -307,6 +307,29 @@ namespace Boards.Models
             return allTasks;
         }
 
+        public Object GetBoardData(int id)
+        {
+            List<Object> taskData = new List<Object>();
+            List<Phase> phases = _context.Phases.Where(q => q.BoardId == id).OrderBy(q => q.Order).ToList();
+            List<Category> categories = _context.Categories.Where(q => q.BoardId == id).OrderBy(q => q.Name).ToList();
+
+            foreach (Phase phase in phases)
+            {
+                List<Task> tasks = _context.Tasks.Where(q => q.BoardId == id && q.PhaseId == phase.Id).OrderBy(q => q.Order).ToList();
+                taskData.Add(new
+                {
+                    phase = Mapper.Map<PhaseViewModel>(phase),
+                    tasks = Mapper.Map<IEnumerable<TaskViewModel>>(tasks)
+                });
+            }
+
+            return new
+            {
+                taskData = taskData,
+                categories = categories
+            };
+        }
+
         private void _updateOrderValues(IEnumerable<BoardSortable> list)
         {
             int order = 1;
@@ -328,24 +351,6 @@ namespace Boards.Models
                 _logger.LogError(errorMessage);
                 throw new Exception(errorMessage);
             }
-        }
-
-        public IEnumerable<object> GetBoardData(int id)
-        {
-            List<Object> returnList = new List<Object>();
-            List<Phase> phases = _context.Phases.Where(q => q.BoardId == id).OrderBy(q => q.Order).ToList();
-
-            foreach (Phase phase in phases)
-            {
-                List<Task> tasks = _context.Tasks.Where(q => q.BoardId == id && q.PhaseId == phase.Id).OrderBy(q => q.Order).ToList();
-                returnList.Add(new
-                {
-                    phase = Mapper.Map<PhaseViewModel>(phase),
-                    tasks = Mapper.Map<IEnumerable<TaskViewModel>>(tasks)
-                });
-            }
-
-            return returnList;
         }
     }
 }

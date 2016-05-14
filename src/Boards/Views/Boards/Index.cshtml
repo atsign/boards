@@ -17,11 +17,10 @@
         </div>
     </div>
 
-    <div id="modal"
-            boards-modal
-            modal-title="boardsCtrl.modalTitle"
-            modal-active="boardsCtrl.modalActive"
-            modal-method="boardsCtrl.modalMethod"
-            ng-class="boardsCtrl.modalActive ? 'active' : ''">
+    <div boards-modal
+        modal-title="boardsCtrl.modalTitle"
+        modal-active="boardsCtrl.modalActive"
+        modal-method="boardsCtrl.modalMethod"
+        ng-class="['modal', {'active':boardsCtrl.modalActive}]">
     </div>
 </div>

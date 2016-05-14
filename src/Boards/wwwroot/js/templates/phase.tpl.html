@@ -1,7 +1,7 @@
 <h2>
     {{phaseCtrl.item().phase.name}}
     <span class="controls">
-        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o" ng-if="phaseCtrl.item().tasks.length < 1 && phaseCtrl.phaseCount"></i>
     </span>
 </h2>
 <div class="items" data-phase-id="{{phaseCtrl.item().phase.id}}">

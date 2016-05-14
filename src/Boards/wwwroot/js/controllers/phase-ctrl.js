@@ -5,6 +5,7 @@ define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
 
             phaseCtrl.item = $scope.item;
             phaseCtrl.boardId = $scope.boardId;
+            phaseCtrl.phaseCount = $scope.phaseCount;
 
             phaseCtrl.itemClicked = function () {
                 console.log('Item Clicked');

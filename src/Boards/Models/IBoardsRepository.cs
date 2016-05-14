@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Boards.Models
 {
@@ -22,6 +23,6 @@ namespace Boards.Models
         void RemoveTask(int id, int boardId);
         void UpdateTask(Task task);
         IEnumerable<IEnumerable<Task>> GetAllBoardTasks(int id);
-        IEnumerable<object> GetBoardData(int id);
+        Object GetBoardData(int id);
     }
 }

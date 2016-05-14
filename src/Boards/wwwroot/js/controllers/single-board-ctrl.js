@@ -12,10 +12,19 @@ define(['angular'], function (angular) {
 
                 boardsService.getBoardData(boardCtrl.boardId)
                     .then(function (data) {
-                        boardCtrl.boardData = data;
+                        boardCtrl.taskData = data.taskData;
+                        boardCtrl.categories = data.categories;
+                        boardCtrl.defaultPhaseId = data.taskData[0].phase.id;
                         boardCtrl.hasLoaded = true;
                     })
                 ;
+            };
+
+
+            boardCtrl.newTaskClicked = function () {
+                boardCtrl.taskModalActive = true;
+                boardCtrl.taskModalTitle = "Add a Task";
+                boardCtrl.taskModalMethod = "new";
             };
 
             boardCtrl.updateBoardData();

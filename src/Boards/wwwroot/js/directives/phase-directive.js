@@ -7,7 +7,8 @@ define(['angular'], function (angular) {
                 controller: 'PhaseCtrl as phaseCtrl',
                 scope: {
                     item: '&',
-                    boardId: '@'
+                    boardId: '@',
+                    phaseCount: "@"
                 }
             };
         })

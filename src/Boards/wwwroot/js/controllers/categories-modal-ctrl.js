@@ -68,21 +68,6 @@ define(['angular'], function (angular) {
             };
 
             $scope.$on('openUpdateModal', openUpdateModal);
-
-            /*
-
-            function openUpdateModal(event, id, name, description) {
-                boardsModal.name = name;
-                boardsModal.id = id;
-                boardsModal.description = description;
-
-                $scope.modalMethod = "update";
-                $scope.modalTitle = "Update Board";
-                $scope.modalActive = true;
-            };
-
-            $scope.$on('openUpdateModal', openUpdateModal);
-*/
         });
     ;
 });
