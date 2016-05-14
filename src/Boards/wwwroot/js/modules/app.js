@@ -14,6 +14,7 @@
         require([
             'services/boards-service',
             'services/categories-service',
+            'services/task-service',
 
             'controllers/boards-ctrl',
             'controllers/boards-list-ctrl',
@@ -24,6 +25,7 @@
             'controllers/categories-modal-ctrl',
 
             'controllers/single-board-ctrl',
+            'controllers/phase-ctrl',
 
             'directives/boards-list-directive',
             'directives/boards-modal-directive',
@@ -31,7 +33,8 @@
             'directives/categories-list-directive',
             'directives/categories-modal-directive',
 
-            'directives/single-board-directive'
+            'directives/single-board-directive',
+            'directives/phase-directive'
         ], function () {
             angular.bootstrap(document, ['boards-app']);
         });

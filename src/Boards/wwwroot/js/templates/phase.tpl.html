@@ -1,0 +1,17 @@
+<h2>
+    {{phaseCtrl.item().phase.name}}
+    <span class="controls">
+        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
+    </span>
+</h2>
+<div class="items" data-phase-id="{{phaseCtrl.item().phase.id}}">
+    <div class="item category-{{task.categoryId}}"
+         data-task-id="{{task.id}}"
+         data-task-name="{{task.name}}"
+         data-task-description="{{task.description}}"
+         data-category-id="{{task.categoryId}}"
+         ng-repeat="task in phaseCtrl.item().tasks"
+         ng-click="phaseCtrl.itemClicked()">
+            {{task.name}}
+    </div>
+</div>

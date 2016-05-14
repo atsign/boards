@@ -4,18 +4,7 @@
 </div>
 <div id="board">
     <button class="add-phase" onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i></button>
-    <div class="phase" ng-repeat="item in boardCtrl.boardData">
-        <h2>
-            {{item.phase.name}}
-            <span class="controls">
-                <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o"></i>
-            </span>
-        </h2>
-        <div class="items">
-            <p class="empty" ng-if="item.tasks.length < 1">Empty</p>
-            <div class="item category-{{task.categoryId}}" ng-repeat="task in item.tasks">{{task.name}}</div>
-        </div>
-    </div>
+    <div phase class="phase" item="item" board-id="{{boardCtrl.boardId}}" ng-repeat="item in boardCtrl.boardData"></div>
     <p class="message" ng-hide="boardCtrl.hasLoaded">
         <i class="fa fa-spinner fa-spin"></i> Loading tasks
     </p>

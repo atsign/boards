@@ -68,6 +68,10 @@
         margin-left: 14px;
     }
 
+    .items {
+        min-height: 100px;
+    }
+
     .item {
         background-color: $color-alto;
         color: $color-shark;
@@ -82,6 +86,15 @@
 
         &:hover {
             text-decoration: underline;
+        }
+
+        &.is-dragging {
+            opacity: 0.4;
+        }
+
+        &.placeholder {
+            border: 3px dotted $color-shark;
+            opacity: 0.4;
         }
     }
 
