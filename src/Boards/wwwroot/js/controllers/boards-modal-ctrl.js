@@ -24,7 +24,12 @@ define(['angular'], function (angular) {
 
                 servicePromise
                     .then(function (newBoard) {
-                        $window.location.href = "/boards/" + newBoard.id;
+                        if ($scope.modalMethod === 'new') {
+                            $window.location.href = "/boards/" + newBoard.id;
+                        } else {
+                            resetModal();
+                            $scope.$parent.$broadcast('reloadList');
+                        }
                     }, function (err) {
                         boardsModal.serverErrorMessage = err.data.message;
                         boardsModal.saving = false;

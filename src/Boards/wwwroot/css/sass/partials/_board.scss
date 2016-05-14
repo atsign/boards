@@ -1,5 +1,6 @@
 #board-info {
     @include span-columns(8);
+    min-height: 200px;
 }
 
 #board-controls {
