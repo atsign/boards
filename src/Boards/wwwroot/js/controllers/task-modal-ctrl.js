@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('TaskModalCtrl', function (taskService, $scope, $sce, $filter) {
+        .controller('TaskModalCtrl', ['taskService', '$scope', '$sce', '$filter', function (taskService, $scope, $sce, $filter) {
             var taskModal = this;
 
             taskModal.ctaText = $sce.trustAsHtml("Save");
@@ -97,6 +97,6 @@ define(['angular'], function (angular) {
                 $scope.form.$setPristine();
                 $scope.form.$setUntouched();
             }
-        })
+        }])
     ;
 });

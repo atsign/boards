@@ -5,5 +5,10 @@
     "grunt": "~0.4.5",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1"
+  },
+  "dependencies": {
+    "exports-loader": "^0.6.3",
+    "imports-loader": "^0.6.5",
+    "webpack": "^1.13.1"
   }
 }

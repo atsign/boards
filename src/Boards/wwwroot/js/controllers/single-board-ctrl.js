@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('SingleBoardCtrl', function (boardsService, $scope) {
+        .controller('SingleBoardCtrl', ['boardsService', '$scope', function (boardsService, $scope) {
             var boardCtrl = this;
 
             boardCtrl.categoryUrl = $scope.categoryUrl;
@@ -30,6 +30,6 @@ define(['angular'], function (angular) {
 
             $scope.updateBoardData = boardCtrl.updateBoardData;
             $scope.openTaskModal = boardCtrl.openTaskModal;
-        });
+        }]);
     ;
 });

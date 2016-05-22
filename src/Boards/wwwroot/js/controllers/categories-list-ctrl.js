@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('CategoriesListCtrl', function (categoriesService, $scope) {
+        .controller('CategoriesListCtrl', ['categoriesService', '$scope', function (categoriesService, $scope) {
             var categoriesList = this;
             var boardId = $scope.boardId;
 
@@ -33,6 +33,6 @@ define(['angular'], function (angular) {
             categoriesList.reloadList();
 
             $scope.$on('reloadList', categoriesList.reloadList);
-        })
+        }])
     ;
 });

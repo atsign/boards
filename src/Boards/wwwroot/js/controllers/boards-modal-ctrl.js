@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .controller('BoardsModalCtrl', function (boardsService, $sce, $scope, $window) {
+        .controller('BoardsModalCtrl', ['boardsService', '$sce', '$scope', '$window', function (boardsService, $sce, $scope, $window) {
             var boardsModal = this;
 
             boardsModal.ctaText = $sce.trustAsHtml("Save");
@@ -62,6 +62,6 @@ define(['angular'], function (angular) {
             }
 
             $scope.$on('openUpdateModal', openUpdateModal);
-        });
+        }]);
     ;
 });

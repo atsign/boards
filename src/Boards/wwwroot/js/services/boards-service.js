@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .service('boardsService', function ($http) {
+        .service('boardsService', ['$http', function ($http) {
             var boardsService = this;
 
             boardsService.getBoards = function () {
@@ -41,6 +41,6 @@ define(['angular'], function (angular) {
                     return results.data;
                 });
             }
-        })
+        }])
     ;
 });

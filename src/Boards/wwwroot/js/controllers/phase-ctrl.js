@@ -1,6 +1,6 @@
 define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
     angular.module('boards-app')
-        .controller('PhaseCtrl', function ($scope, $element, $filter, taskService) {
+        .controller('PhaseCtrl', ['$scope', '$element', '$filter', 'taskService', function ($scope, $element, $filter, taskService) {
             var phaseCtrl = this;
 
             phaseCtrl.item = $scope.item;
@@ -48,6 +48,6 @@ define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
                     order: taskElem.attributes['data-order'].value
                 }
             }
-        });
+        }]);
     ;
 });

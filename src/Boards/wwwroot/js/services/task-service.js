@@ -1,6 +1,6 @@
 define(['angular'], function (angular) {
     angular.module('boards-app')
-        .service('taskService', function ($http) {
+        .service('taskService', ['$http', function ($http) {
             var taskService = this;
 
             taskService.updateTask = function (taskViewModel, boardId) {
@@ -22,6 +22,6 @@ define(['angular'], function (angular) {
             taskService.deleteTask = function (id, boardId) {
                 return $http.delete('/api/boards/' + boardId + '/tasks/' + id);
             }
-        })
+        }])
     ;
 });
