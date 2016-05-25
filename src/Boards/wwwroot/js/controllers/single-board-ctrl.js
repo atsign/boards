@@ -26,10 +26,20 @@ define(['angular'], function (angular) {
                 boardCtrl.taskModalMethod = "new";
             };
 
+            boardCtrl.newPhaseClicked = function () {
+                boardCtrl.phaseModalActive = true;
+                boardCtrl.phaseModalTitle = "Add a Phase";
+                boardCtrl.phaseModalMethod = "new";
+            };
+
+            boardCtrl.openPhaseUpdateModal = function (phaseId, name) {
+                $scope.$broadcast('openPhaseUpdateModal', phaseId, name);
+            }
+
             boardCtrl.updateBoardData();
 
             $scope.updateBoardData = boardCtrl.updateBoardData;
-            $scope.openTaskModal = boardCtrl.openTaskModal;
+            $scope.openPhaseUpdateModal = boardCtrl.openPhaseUpdateModal;
         }]);
     ;
 });

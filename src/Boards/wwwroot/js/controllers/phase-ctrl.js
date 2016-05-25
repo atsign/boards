@@ -44,6 +44,10 @@ define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
                 ;
             };
 
+            phaseCtrl.openPhaseUpdateModal = function (phaseId, name) {
+                $scope.$parent.openPhaseUpdateModal(phaseId, name);
+            };
+
             new Sortable($element.find('div')[0], {
                 forceFallback: true,
                 fallbackClass: 'is-dragging',

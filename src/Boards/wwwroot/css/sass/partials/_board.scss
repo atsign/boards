@@ -30,7 +30,7 @@
 
     .add-phase {
         @include position(absolute, -35px 0px null null);
-        @include size(35px);
+        @include size(200px 35px);
         font-size: 25px;
         opacity: 0.4;
 

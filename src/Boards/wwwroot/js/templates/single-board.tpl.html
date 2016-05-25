@@ -3,7 +3,7 @@
     <a href="{{boardCtrl.categoryUrl}}" class="cta-button categories">Categories</a>
 </div>
 <div id="board">
-    <button class="add-phase" onclick="$('#modal').css('display', 'flex');"><i class="fa fa-plus"></i></button>
+    <button class="add-phase" ng-click="boardCtrl.newPhaseClicked()"><i class="fa fa-plus"></i> New Phase</button>
     <div phase
          class="phase"
          item="item"
@@ -16,6 +16,7 @@
         <i class="fa fa-spinner fa-spin"></i> Loading tasks
     </p>
 </div>
+
 <div task-modal
      task-modal-title="boardCtrl.taskModalTitle"
      task-modal-active="boardCtrl.taskModalActive"
@@ -24,5 +25,14 @@
      default-phase-id="boardCtrl.defaultPhaseId"
      reset-board="boardCtrl.updateBoardData()"
      ng-class="['modal', {active: boardCtrl.taskModalActive}]"
+     board-id="{{boardCtrl.boardId}}">
+</div>
+
+<div phase-modal
+     phase-modal-title="boardCtrl.phaseModalTitle"
+     phase-modal-active="boardCtrl.phaseModalActive"
+     phase-modal-method="boardCtrl.phaseModalMethod"
+     reset-board="boardCtrl.updateBoardData()"
+     ng-class="['modal', {active: boardCtrl.phaseModalActive}]"
      board-id="{{boardCtrl.boardId}}">
 </div>

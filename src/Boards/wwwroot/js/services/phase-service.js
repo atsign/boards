@@ -10,6 +10,23 @@ define(['angular'], function (angular) {
                     })
                 ;
             };
+
+            phaseService.addPhase = function (name, boardId) {
+                return $http.post('/api/boards/' + boardId + '/phases', {
+                    name: name,
+                }).then(function (results) {
+                    return results.data;
+                });
+            };
+
+            phaseService.updatePhase = function (phaseId, name, boardId) {
+                return $http.put('/api/boards/' + boardId + '/phases', {
+                    id: phaseId,
+                    name: name
+                }).then(function (results) {
+                    return results.data;
+                });
+            };
         }])
     ;
 });

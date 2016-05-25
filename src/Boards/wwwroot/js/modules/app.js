@@ -28,6 +28,7 @@
             'controllers/single-board-ctrl',
             'controllers/phase-ctrl',
             'controllers/task-modal-ctrl',
+            'controllers/phase-modal-ctrl',
 
             'directives/boards-list-directive',
             'directives/boards-modal-directive',
@@ -37,7 +38,8 @@
 
             'directives/single-board-directive',
             'directives/phase-directive',
-            'directives/task-modal-directive'
+            'directives/task-modal-directive',
+            'directives/phase-modal-directive'
         ], function () {
             angular.module('boards-app')
                 .filter('getCategoryById', function () {

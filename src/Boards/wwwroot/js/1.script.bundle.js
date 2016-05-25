@@ -36,6 +36,7 @@ webpackJsonp([1],[
 	            __webpack_require__(/*! controllers/single-board-ctrl */ 15),
 	            __webpack_require__(/*! controllers/phase-ctrl */ 16),
 	            __webpack_require__(/*! controllers/task-modal-ctrl */ 18),
+	            __webpack_require__(/*! controllers/phase-modal-ctrl */ 28),
 	
 	            __webpack_require__(/*! directives/boards-list-directive */ 19),
 	            __webpack_require__(/*! directives/boards-modal-directive */ 20),
@@ -45,7 +46,8 @@ webpackJsonp([1],[
 	
 	            __webpack_require__(/*! directives/single-board-directive */ 23),
 	            __webpack_require__(/*! directives/phase-directive */ 24),
-	            __webpack_require__(/*! directives/task-modal-directive */ 25)
+	            __webpack_require__(/*! directives/task-modal-directive */ 25),
+	            __webpack_require__(/*! directives/phase-modal-directive */ 27)
 	        ]; (function () {
 	            angular.module('boards-app')
 	                .filter('getCategoryById', function () {

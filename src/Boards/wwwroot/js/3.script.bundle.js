@@ -468,10 +468,20 @@ webpackJsonp([3],[
 	                boardCtrl.taskModalMethod = "new";
 	            };
 	
+	            boardCtrl.newPhaseClicked = function () {
+	                boardCtrl.phaseModalActive = true;
+	                boardCtrl.phaseModalTitle = "Add a Phase";
+	                boardCtrl.phaseModalMethod = "new";
+	            };
+	
+	            boardCtrl.openPhaseUpdateModal = function (phaseId, name) {
+	                $scope.$broadcast('openPhaseUpdateModal', phaseId, name);
+	            }
+	
 	            boardCtrl.updateBoardData();
 	
 	            $scope.updateBoardData = boardCtrl.updateBoardData;
-	            $scope.openTaskModal = boardCtrl.openTaskModal;
+	            $scope.openPhaseUpdateModal = boardCtrl.openPhaseUpdateModal;
 	        }]);
 	    ;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -527,6 +537,10 @@ webpackJsonp([3],[
 	                        alert(err);
 	                    });
 	                ;
+	            };
+	
+	            phaseCtrl.openPhaseUpdateModal = function (phaseId, name) {
+	                $scope.$parent.openPhaseUpdateModal(phaseId, name);
 	            };
 	
 	            new Sortable($element.find('div')[0], {
@@ -858,7 +872,120 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
+	
+	            phaseService.addPhase = function (name, boardId) {
+	                return $http.post('/api/boards/' + boardId + '/phases', {
+	                    name: name,
+	                }).then(function (results) {
+	                    return results.data;
+	                });
+	            };
+	
+	            phaseService.updatePhase = function (phaseId, name, boardId) {
+	                return $http.put('/api/boards/' + boardId + '/phases', {
+	                    id: phaseId,
+	                    name: name
+	                }).then(function (results) {
+	                    return results.data;
+	                });
+	            };
 	        }])
+	    ;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 27 */
+/*!********************************************************!*\
+  !*** ./wwwroot/js/directives/phase-modal-directive.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	    angular.module('boards-app')
+	        .directive('phaseModal', function () {
+	            return {
+	                templateUrl: '/js/templates/phase-modal.tpl.html',
+	                restrict: 'A',
+	                controller: 'PhaseModalCtrl as phaseModal',
+	                scope: {
+	                    boardId: "@",
+	                    phaseModalTitle: '=',
+	                    phaseModalActive: '=',
+	                    phaseModalMethod: '=',
+	                    resetBoard: '&'
+	                }
+	            };
+	        })
+	    ;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 28 */
+/*!****************************************************!*\
+  !*** ./wwwroot/js/controllers/phase-modal-ctrl.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	    angular.module('boards-app')
+	        .controller('PhaseModalCtrl', ['phaseService', '$sce', '$scope', function (phaseService, $sce, $scope) {
+	            var phaseModal = this;
+	
+	            phaseModal.ctaText = $sce.trustAsHtml("Save");
+	            phaseModal.saving = false;
+	            phaseModal.serverErrorMessage = '';
+	
+	            phaseModal.closeModal = function () {
+	                resetModal();
+	            };
+	
+	            phaseModal.saveClicked = function (name, id) {
+	                var servicePromise;
+	                phaseModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
+	                phaseModal.saving = true;
+	
+	                if ($scope.phaseModalMethod === 'new') {
+	                    servicePromise = phaseService.addPhase(name, $scope.boardId);
+	                } else if ($scope.phaseModalMethod === 'update') {
+	                    servicePromise = phaseService.updatePhase(id, name, $scope.boardId);
+	                }
+	
+	                servicePromise
+	                    .then(function () {
+	                        $scope.$parent.updateBoardData();
+	                        resetModal();
+	                    })
+	                    .catch(function (err) {
+	                        phaseModal.serverErrorMessage = err.data.message;
+	                        phaseModal.saving = false;
+	                        phaseModal.ctaText = $sce.trustAsHtml('Save');
+	                    })
+	                ;
+	            };
+	
+	            function openUpdateModal(event, id, name) {
+	                phaseModal.name = name;
+	                phaseModal.id = id;
+	
+	                $scope.phaseModalMethod = "update";
+	                $scope.phaseModalTitle = "Rename Phase";
+	                $scope.phaseModalActive = true;
+	            };
+	
+	            function resetModal() {
+	                phaseModal.name = '';
+	                phaseModal.serverErrorMessage = '';
+	                phaseModal.saving = false;
+	                phaseModal.ctaText = $sce.trustAsHtml('Save');
+	
+	                $scope.phaseModalActive = false;
+	
+	                $scope.form.$setPristine()
+	                $scope.form.$setUntouched();
+	            }
+	
+	            $scope.$on('openPhaseUpdateModal', openUpdateModal);
+	        }]);
 	    ;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 

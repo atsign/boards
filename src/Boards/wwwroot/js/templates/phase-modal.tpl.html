@@ -1,0 +1,16 @@
+<div class="modal-content">
+    <form novalidate name="form">
+        <button type="button" class="modal-close" ng-click="phaseModal.closeModal()"><i class="fa fa-times"></i></button>
+        <h2>{{phaseModalTitle}}</h2>
+        <div class="form-message" ng-show="phaseModal.serverErrorMessage.length > 0">
+            {{phaseModal.serverErrorMessage}}
+        </div>
+        <label for="phase-name-input">Name</label>
+        <input type="text" value="" id="phase-name-input" name="phaseNameInput" ng-model="phaseModal.name" ng-disabled="phaseModal.saving" required ng-maxlength="20" />
+        <div class="form-message" ng-show="form.$submitted || form.phaseNameInput.$touched">
+            <div ng-show="form.phaseNameInput.$error.required">Phase name is required</div>
+            <div ng-show="form.phaseNameInput.$error.maxlength">Phase name must be 20 characters or less</div>
+        </div>
+        <button type="submit" ng-click="form.$valid && phaseModal.saveClicked(phaseModal.name, phaseModal.id)" ng-disabled="phaseModal.saving"><span ng-bind-html="phaseModal.ctaText"></span></button>
+    </form>
+</div>

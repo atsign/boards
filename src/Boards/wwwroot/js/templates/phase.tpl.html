@@ -1,7 +1,13 @@
 <h2>
     {{phaseCtrl.item().phase.name}}
     <span class="controls">
-        <i class="fa fa-pencil-square-o "></i> <i class="fa fa-trash-o" ng-click="phaseCtrl.deletePhase(phaseCtrl.item().phase.id, phaseCtrl.item().phase.name)"></i>
+        <i class="fa fa-pencil-square-o"
+           ng-click="phaseCtrl.openPhaseUpdateModal(phaseCtrl.item().phase.id, phaseCtrl.item().phase.name)">
+        </i>
+
+        <i class="fa fa-trash-o"
+           ng-click="phaseCtrl.deletePhase(phaseCtrl.item().phase.id, phaseCtrl.item().phase.name)">
+        </i>
     </span>
 </h2>
 <div class="items" data-phase-id="{{phaseCtrl.item().phase.id}}">
