@@ -1,73 +1,80 @@
 webpackJsonp([1],[
 /* 0 */,
 /* 1 */
+/*!***********************************!*\
+  !*** ./wwwroot/js/modules/app.js ***!
+  \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    var APP = APP || {};
-
+	
 	    APP.init = function () {
 	        var moduleInit = function (Module) {
 	            Module.init();
 	        };
-
+	
 	        // General app modules
-	        __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(3)]; (moduleInit.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
-
+	        __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(/*! modules/menu */ 3)]; (moduleInit.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	
 	        // Angular app modules
 	        angular.module('boards-app', []);
 	        __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [
-	            __webpack_require__(6),
-	            __webpack_require__(7),
-	            __webpack_require__(8),
-
-	            __webpack_require__(9),
-	            __webpack_require__(10),
-	            __webpack_require__(11),
-
-	            __webpack_require__(12),
-	            __webpack_require__(13),
-	            __webpack_require__(14),
-
-	            __webpack_require__(15),
-	            __webpack_require__(16),
-	            __webpack_require__(18),
-
-	            __webpack_require__(19),
-	            __webpack_require__(20),
-
-	            __webpack_require__(21),
-	            __webpack_require__(22),
-
-	            __webpack_require__(23),
-	            __webpack_require__(24),
-	            __webpack_require__(25)
+	            __webpack_require__(/*! services/boards-service */ 6),
+	            __webpack_require__(/*! services/categories-service */ 7),
+	            __webpack_require__(/*! services/task-service */ 8),
+	            __webpack_require__(/*! services/phase-service */ 26),
+	
+	            __webpack_require__(/*! controllers/boards-ctrl */ 9),
+	            __webpack_require__(/*! controllers/boards-list-ctrl */ 10),
+	            __webpack_require__(/*! controllers/boards-modal-ctrl */ 11),
+	
+	            __webpack_require__(/*! controllers/categories-ctrl */ 12),
+	            __webpack_require__(/*! controllers/categories-list-ctrl */ 13),
+	            __webpack_require__(/*! controllers/categories-modal-ctrl */ 14),
+	
+	            __webpack_require__(/*! controllers/single-board-ctrl */ 15),
+	            __webpack_require__(/*! controllers/phase-ctrl */ 16),
+	            __webpack_require__(/*! controllers/task-modal-ctrl */ 18),
+	
+	            __webpack_require__(/*! directives/boards-list-directive */ 19),
+	            __webpack_require__(/*! directives/boards-modal-directive */ 20),
+	
+	            __webpack_require__(/*! directives/categories-list-directive */ 21),
+	            __webpack_require__(/*! directives/categories-modal-directive */ 22),
+	
+	            __webpack_require__(/*! directives/single-board-directive */ 23),
+	            __webpack_require__(/*! directives/phase-directive */ 24),
+	            __webpack_require__(/*! directives/task-modal-directive */ 25)
 	        ]; (function () {
 	            angular.module('boards-app')
 	                .filter('getCategoryById', function () {
 	                    return function (categories, id) {
 	                        var foundCategory;
-
+	
 	                        categories.forEach(function (category) {
 	                            if (category.id == id) {
 	                                foundCategory = category;
 	                            }
 	                        });
-
+	
 	                        return foundCategory;
 	                    }
 	                })
 	            ;
-
+	
 	            angular.bootstrap(document, ['boards-app']);
 	        }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
 	    };
-
+	
 	    return APP;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ },
 /* 2 */
+/*!***************************************!*\
+  !*** ./wwwroot/js/lib/angular.min.js ***!
+  \***************************************/
 /***/ function(module, exports) {
 
 	/*
@@ -381,10 +388,11 @@ webpackJsonp([1],[
 	6],fullDate:"EEEE, MMMM d, y",longDate:"MMMM d, y",medium:"MMM d, y h:mm:ss a",mediumDate:"MMM d, y",mediumTime:"h:mm:ss a","short":"M/d/yy h:mm a",shortDate:"M/d/yy",shortTime:"h:mm a"},NUMBER_FORMATS:{CURRENCY_SYM:"$",DECIMAL_SEP:".",GROUP_SEP:",",PATTERNS:[{gSize:3,lgSize:3,maxFrac:3,minFrac:0,minInt:1,negPre:"-",negSuf:"",posPre:"",posSuf:""},{gSize:3,lgSize:3,maxFrac:2,minFrac:2,minInt:1,negPre:"-\u00a4",negSuf:"",posPre:"\u00a4",posSuf:""}]},id:"en-us",localeID:"en_US",pluralCat:function(a,
 	c){var e=a|0,f=c;u===f&&(f=Math.min(b(a),3));Math.pow(10,f);return 1==e&&0==f?"one":"other"}})}]),H(P).ready(function(){de(P,yc)}))})(window,document);!window.angular.$$csp().noInlineStyle&&window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 	//# sourceMappingURL=angular.min.js.map
-
-
+	
+	
 	/*** EXPORTS FROM exports-loader ***/
 	module.exports = angular;
 
 /***/ }
 ]);
+//# sourceMappingURL=1.script.bundle.js.map

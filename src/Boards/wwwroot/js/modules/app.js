@@ -15,6 +15,7 @@
             'services/boards-service',
             'services/categories-service',
             'services/task-service',
+            'services/phase-service',
 
             'controllers/boards-ctrl',
             'controllers/boards-list-ctrl',

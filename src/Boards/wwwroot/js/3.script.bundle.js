@@ -6,13 +6,16 @@ webpackJsonp([3],[
 /* 4 */,
 /* 5 */,
 /* 6 */
+/*!***********************************************!*\
+  !*** ./wwwroot/js/services/boards-service.js ***!
+  \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .service('boardsService', ['$http', function ($http) {
 	            var boardsService = this;
-
+	
 	            boardsService.getBoards = function () {
 	                return $http.get('/api/boards')
 	                    .then(function (results) {
@@ -20,7 +23,7 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            boardsService.getBoardData = function (id) {
 	                return $http.get('/api/boards/' + id)
 	                    .then(function (results) {
@@ -28,7 +31,7 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            boardsService.addBoard = function (name, description) {
 	                return $http.post('/api/boards', {
 	                    name: name,
@@ -37,11 +40,11 @@ webpackJsonp([3],[
 	                    return results.data;
 	                });
 	            };
-
+	
 	            boardsService.deleteBoard = function (id) {
 	                return $http.delete('/api/boards/' + id);
 	            };
-
+	
 	            boardsService.updateBoard = function (id, name, description) {
 	                return $http.put('/api/boards', {
 	                    id: id,
@@ -57,13 +60,16 @@ webpackJsonp([3],[
 
 /***/ },
 /* 7 */
+/*!***************************************************!*\
+  !*** ./wwwroot/js/services/categories-service.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .service('categoriesService', ['$http', function ($http) {
 	            var categoriesService = this;
-
+	
 	            categoriesService.getCategoriesForBoard = function (boardId) {
 	                return $http.get('/api/boards/' + boardId + '/categories')
 	                    .then(function (results) {
@@ -71,11 +77,11 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            categoriesService.deleteCategory = function (categoryId, boardId) {
 	                return $http.delete('/api/boards/' + boardId + '/categories/' + categoryId);
 	            };
-
+	
 	            categoriesService.addCategory = function (name, colorCode, boardId) {
 	                return $http.post('/api/boards/' + boardId + '/categories', {
 	                    name: name,
@@ -84,7 +90,7 @@ webpackJsonp([3],[
 	                    return results.data;
 	                });
 	            };
-
+	
 	            categoriesService.updateBoard = function (categoryId, name, colorCode, boardId) {
 	                return $http.put('/api/boards/' + boardId + '/categories', {
 	                    id: categoryId,
@@ -100,13 +106,16 @@ webpackJsonp([3],[
 
 /***/ },
 /* 8 */
+/*!*********************************************!*\
+  !*** ./wwwroot/js/services/task-service.js ***!
+  \*********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .service('taskService', ['$http', function ($http) {
 	            var taskService = this;
-
+	
 	            taskService.updateTask = function (taskViewModel, boardId) {
 	                return $http.put('/api/boards/' + boardId + '/tasks', taskViewModel)
 	                    .then(function (results) {
@@ -114,7 +123,7 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            taskService.addTask = function (taskViewModel, boardId) {
 	                return $http.post('/api/boards/' + boardId + '/tasks', taskViewModel)
 	                    .then(function (results) {
@@ -122,7 +131,7 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            taskService.deleteTask = function (id, boardId) {
 	                return $http.delete('/api/boards/' + boardId + '/tasks/' + id);
 	            }
@@ -132,15 +141,18 @@ webpackJsonp([3],[
 
 /***/ },
 /* 9 */
+/*!***********************************************!*\
+  !*** ./wwwroot/js/controllers/boards-ctrl.js ***!
+  \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('BoardsCtrl', function () {
 	            var boardsCtrl = this;
-
+	
 	            boardsCtrl.modalActive = false;
-
+	
 	            boardsCtrl.newBoardClicked = function () {
 	                boardsCtrl.modalTitle = "Add a Board";
 	                boardsCtrl.modalActive = true;
@@ -152,22 +164,25 @@ webpackJsonp([3],[
 
 /***/ },
 /* 10 */
+/*!****************************************************!*\
+  !*** ./wwwroot/js/controllers/boards-list-ctrl.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('BoardsListCtrl', ['boardsService', '$scope', function (boardsService, $scope) {
 	            var boardsList = this;
-
+	
 	            boardsList.haveLoaded = false;
-
+	
 	            boardsList.reloadList = function () {
 	                boardsService.getBoards().then(function (items) {
 	                    boardsList.items = items;
 	                    boardsList.haveLoaded = true;
 	                });
 	            };
-
+	
 	            boardsList.deleteBoard = function (id, name) {
 	                if (window.confirm('Are you sure you want to delete "' + name + '"? This will also delete all of its tasks and categories.')) {
 	                    boardsService.deleteBoard(id)
@@ -180,13 +195,13 @@ webpackJsonp([3],[
 	                    ;
 	                }
 	            };
-
+	
 	            boardsList.updateBoard = function (id, name, description) {
 	                $scope.$parent.$broadcast('openUpdateModal', id, name, description);
 	            };
-
+	
 	            boardsList.reloadList();
-
+	
 	            $scope.$on('reloadList', boardsList.reloadList);
 	        }]);
 	    ;
@@ -194,32 +209,35 @@ webpackJsonp([3],[
 
 /***/ },
 /* 11 */
+/*!*****************************************************!*\
+  !*** ./wwwroot/js/controllers/boards-modal-ctrl.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('BoardsModalCtrl', ['boardsService', '$sce', '$scope', '$window', function (boardsService, $sce, $scope, $window) {
 	            var boardsModal = this;
-
+	
 	            boardsModal.ctaText = $sce.trustAsHtml("Save");
 	            boardsModal.saving = false;
 	            boardsModal.serverErrorMessage = '';
-
+	
 	            boardsModal.closeModal = function () {
 	                resetModal();
 	            };
-
+	
 	            boardsModal.saveClicked = function (name, description, id) {
 	                var servicePromise;
 	                boardsModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
 	                boardsModal.saving = true;
-
+	
 	                if ($scope.modalMethod === 'new') {
 	                    servicePromise = boardsService.addBoard(name, description);
 	                } else if ($scope.modalMethod === 'update') {
 	                    servicePromise = boardsService.updateBoard(id, name, description);
 	                }
-
+	
 	                servicePromise
 	                    .then(function (newBoard) {
 	                        if ($scope.modalMethod === 'new') {
@@ -235,30 +253,30 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            function openUpdateModal(event, id, name, description) {
 	                boardsModal.name = name;
 	                boardsModal.id = id;
 	                boardsModal.description = description;
-
+	
 	                $scope.modalMethod = "update";
 	                $scope.modalTitle = "Update Board";
 	                $scope.modalActive = true;
 	            };
-
+	
 	            function resetModal() {
 	                boardsModal.name = '';
 	                boardsModal.description = '';
 	                boardsModal.serverErrorMessage = '';
 	                boardsModal.saving = false;
 	                boardsModal.ctaText = $sce.trustAsHtml('Save');
-
+	
 	                $scope.modalActive = false;
-
+	
 	                $scope.form.$setPristine()
 	                $scope.form.$setUntouched();
 	            }
-
+	
 	            $scope.$on('openUpdateModal', openUpdateModal);
 	        }]);
 	    ;
@@ -266,15 +284,18 @@ webpackJsonp([3],[
 
 /***/ },
 /* 12 */
+/*!***************************************************!*\
+  !*** ./wwwroot/js/controllers/categories-ctrl.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('CategoriesCtrl', function () {
 	            var categoriesCtrl = this;
-
+	
 	            categoriesCtrl.modalActive = false;
-
+	
 	            categoriesCtrl.newCategoryClicked = function () {
 	                categoriesCtrl.modalTitle = "Add a Category";
 	                categoriesCtrl.modalActive = true;
@@ -287,23 +308,26 @@ webpackJsonp([3],[
 
 /***/ },
 /* 13 */
+/*!********************************************************!*\
+  !*** ./wwwroot/js/controllers/categories-list-ctrl.js ***!
+  \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('CategoriesListCtrl', ['categoriesService', '$scope', function (categoriesService, $scope) {
 	            var categoriesList = this;
 	            var boardId = $scope.boardId;
-
+	
 	            categoriesList.haveLoaded = false;
-
+	
 	            categoriesList.reloadList = function () {
 	                categoriesService.getCategoriesForBoard(boardId).then(function (items) {
 	                    categoriesList.items = items;
 	                    categoriesList.haveLoaded = true;
 	                });
 	            };
-
+	
 	            categoriesList.deleteCategory = function (categoryId, name) {
 	                if (window.confirm("Are you sure you want to delete the '" + name + "' category?")) {
 	                    categoriesService.deleteCategory(categoryId, boardId)
@@ -316,13 +340,13 @@ webpackJsonp([3],[
 	                    ;
 	                }
 	            };
-
+	
 	            categoriesList.updateCategory = function (categoryId, name, colorCode) {
 	                $scope.$parent.$broadcast('openUpdateModal', categoryId, name, colorCode);
 	            };
-
+	
 	            categoriesList.reloadList();
-
+	
 	            $scope.$on('reloadList', categoriesList.reloadList);
 	        }])
 	    ;
@@ -330,49 +354,52 @@ webpackJsonp([3],[
 
 /***/ },
 /* 14 */
+/*!*********************************************************!*\
+  !*** ./wwwroot/js/controllers/categories-modal-ctrl.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('CategoriesModalCtrl', ['categoriesService', '$sce', '$scope', function (categoriesService, $sce, $scope) {
 	            var categoriesModal = this;
-
+	
 	            categoriesModal.ctaText = $sce.trustAsHtml("Save");
 	            categoriesModal.saving = false;
 	            categoriesModal.serverErrorMessage = '';
-
+	
 	            categoriesModal.closeModal = function () {
 	                resetModal();
 	            };
-
+	
 	            function resetModal() {
 	                categoriesModal.name = '';
 	                categoriesModal.colorCode = 1;
 	                categoriesModal.serverErrorMessage = '';
 	                categoriesModal.saving = false;
 	                categoriesModal.ctaText = $sce.trustAsHtml('Save');
-
+	
 	                $scope.modalActive = false;
-
+	
 	                $scope.form.$setPristine()
 	                $scope.form.$setUntouched();
 	            }
-
+	
 	            categoriesModal.selectColorCode = function (colorCode) {
 	                $scope.modalColorCode = colorCode;
 	            };
-
+	
 	            categoriesModal.saveClicked = function (name, colorCode, categoryId) {
 	                var servicePromise;
 	                categoriesModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
 	                categoriesModal.saving = true;
-
+	
 	                if ($scope.modalMethod === 'new') {
 	                    servicePromise = categoriesService.addCategory(name, colorCode, $scope.boardId);
 	                } else if ($scope.modalMethod === 'update') {
 	                    servicePromise = categoriesService.updateBoard(categoryId, name, colorCode, $scope.boardId);
 	                }
-
+	
 	                if (servicePromise) {
 	                    servicePromise
 	                        .then(function () {
@@ -389,18 +416,18 @@ webpackJsonp([3],[
 	                    alert("There was a problem saving your category. Please try again.");
 	                }
 	            };
-
+	
 	            function openUpdateModal(event, categoryId, name, colorCode) {
 	                categoriesModal.name = name;
 	                categoriesModal.categoryId = categoryId;
 	                categoriesModal.colorCode = colorCode;
-
+	
 	                $scope.modalMethod = "update";
 	                $scope.modalTitle = "Update Category";
 	                $scope.modalColorCode = colorCode;
 	                $scope.modalActive = true;
 	            };
-
+	
 	            $scope.$on('openUpdateModal', openUpdateModal);
 	        }]);
 	    ;
@@ -408,20 +435,23 @@ webpackJsonp([3],[
 
 /***/ },
 /* 15 */
+/*!*****************************************************!*\
+  !*** ./wwwroot/js/controllers/single-board-ctrl.js ***!
+  \*****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('SingleBoardCtrl', ['boardsService', '$scope', function (boardsService, $scope) {
 	            var boardCtrl = this;
-
+	
 	            boardCtrl.categoryUrl = $scope.categoryUrl;
 	            boardCtrl.hasLoaded = false;
 	            boardCtrl.boardId = $scope.boardId;
-
+	
 	            boardCtrl.updateBoardData = function () {
 	                boardCtrl.hasLoaded = false;
-
+	
 	                boardsService.getBoardData(boardCtrl.boardId)
 	                    .then(function (data) {
 	                        boardCtrl.taskData = data.taskData;
@@ -431,15 +461,15 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            boardCtrl.newTaskClicked = function () {
 	                boardCtrl.taskModalActive = true;
 	                boardCtrl.taskModalTitle = "Add a Task";
 	                boardCtrl.taskModalMethod = "new";
 	            };
-
+	
 	            boardCtrl.updateBoardData();
-
+	
 	            $scope.updateBoardData = boardCtrl.updateBoardData;
 	            $scope.openTaskModal = boardCtrl.openTaskModal;
 	        }]);
@@ -448,31 +478,34 @@ webpackJsonp([3],[
 
 /***/ },
 /* 16 */
+/*!**********************************************!*\
+  !*** ./wwwroot/js/controllers/phase-ctrl.js ***!
+  \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular, Sortable) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2), __webpack_require__(/*! lib/sortable.min */ 17)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular, Sortable) {
 	    angular.module('boards-app')
-	        .controller('PhaseCtrl', ['$scope', '$element', '$filter', 'taskService', function ($scope, $element, $filter, taskService) {
+	        .controller('PhaseCtrl', ['$scope', '$element', '$filter', 'taskService', 'phaseService', function ($scope, $element, $filter, taskService, phaseService) {
 	            var phaseCtrl = this;
-
+	
 	            phaseCtrl.item = $scope.item;
 	            phaseCtrl.boardId = $scope.boardId;
 	            phaseCtrl.phaseCount = $scope.phaseCount;
-
+	
 	            phaseCtrl.getCategoryColor = function (categoryId) {
 	                var category = $filter('getCategoryById')($scope.boardCategories(), categoryId);
 	                return category.colorCode;
 	            };
-
+	
 	            phaseCtrl.itemClicked = function (e) {
 	                var taskViewModel = getTaskViewModelFromDom(e.target, e.target.parentNode);
 	                $scope.$parent.$parent.$broadcast('openUpdateTaskModal', taskViewModel);
 	            };
-
+	
 	            phaseCtrl.onTaskChange = function (e) {
 	                e.item.attributes['data-order'].value = e.newIndex + 1;
 	                var taskViewModel = getTaskViewModelFromDom(e.item, e.srcElement);
-
+	
 	                taskService.updateTask(taskViewModel, phaseCtrl.boardId)
 	                    .catch(function () {
 	                        alert("There was an issue updating this task's data. Please try again.");
@@ -480,7 +513,22 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
+	            phaseCtrl.deletePhase = function (id, name) {
+	                if (!window.confirm("Are you sure you want to delete the phase \"" + name + "\"?")) {
+	                    return;
+	                }
+	
+	                phaseService.deletePhase(id, phaseCtrl.boardId)
+	                    .then(function() {
+	                        $scope.$parent.updateBoardData();
+	                    })
+	                    .catch(function(err) {
+	                        alert(err);
+	                    });
+	                ;
+	            };
+	
 	            new Sortable($element.find('div')[0], {
 	                forceFallback: true,
 	                fallbackClass: 'is-dragging',
@@ -489,7 +537,7 @@ webpackJsonp([3],[
 	                onAdd: phaseCtrl.onTaskChange,
 	                onUpdate: phaseCtrl.onTaskChange
 	            });
-
+	
 	            function getTaskViewModelFromDom(taskElem, phaseElem) {
 	                return {
 	                    id: taskElem.attributes['data-task-id'].value,
@@ -506,6 +554,9 @@ webpackJsonp([3],[
 
 /***/ },
 /* 17 */
+/*!****************************************!*\
+  !*** ./wwwroot/js/lib/sortable.min.js ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Sortable 1.4.2 - MIT | git://github.com/rubaxa/Sortable.git */
@@ -513,17 +564,20 @@ webpackJsonp([3],[
 
 /***/ },
 /* 18 */
+/*!***************************************************!*\
+  !*** ./wwwroot/js/controllers/task-modal-ctrl.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .controller('TaskModalCtrl', ['taskService', '$scope', '$sce', '$filter', function (taskService, $scope, $sce, $filter) {
 	            var taskModal = this;
-
+	
 	            taskModal.ctaText = $sce.trustAsHtml("Save");
 	            taskModal.saving = false;
 	            taskModal.serverErrorMessage = '';
-
+	
 	            // Hack to get the category select to default to the first category
 	            var unregister = $scope.$watch($scope.boardCategories, function (categories) {
 	                if (categories) {
@@ -531,22 +585,22 @@ webpackJsonp([3],[
 	                    unregister();
 	                }
 	            });
-
+	
 	            taskModal.closeModal = function () {
 	                resetModal();
 	            };
-
+	
 	            taskModal.saveClicked = function (name, description, categoryId, phaseId, order, taskId) {
 	                var servicePromise;
 	                taskModal.ctaText = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Saving');
 	                taskModal.saving = true;
-
+	
 	                var taskViewModel = {
 	                    name: name,
 	                    description: description,
 	                    categoryId: categoryId
 	                };
-
+	
 	                if ($scope.taskModalMethod === 'new') {
 	                    taskViewModel.phaseId = $scope.defaultPhaseId;
 	                    taskViewModel.order = 1;
@@ -557,7 +611,7 @@ webpackJsonp([3],[
 	                    taskViewModel.id = taskId;
 	                    servicePromise = taskService.updateTask(taskViewModel, $scope.boardId);
 	                }
-
+	
 	                servicePromise
 	                    .then(function () {
 	                        resetModal();
@@ -570,12 +624,12 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            taskModal.deleteClicked = function () {
 	                if (! window.confirm("Are you sure you want to delete this task?")) {
 	                    return;
 	                }
-
+	
 	                taskService.deleteTask(taskModal.taskId, $scope.boardId)
 	                    .then(function () {
 	                        resetModal();
@@ -587,12 +641,12 @@ webpackJsonp([3],[
 	                    })
 	                ;
 	            };
-
+	
 	            $scope.$on('openUpdateTaskModal', function (e, taskViewModel) {
 	                $scope.taskModalActive = true;
 	                $scope.taskModalTitle = "Task Details";
 	                $scope.taskModalMethod = "update";
-
+	
 	                taskModal.name = taskViewModel.name;
 	                taskModal.description = taskViewModel.description;
 	                taskModal.category = $filter('getCategoryById')($scope.boardCategories(), taskViewModel.categoryId);
@@ -600,7 +654,7 @@ webpackJsonp([3],[
 	                taskModal.order = taskViewModel.order;
 	                taskModal.taskId = taskViewModel.id;
 	            });
-
+	
 	            function resetModal() {
 	                taskModal.name = '';
 	                taskModal.description = '';
@@ -608,9 +662,9 @@ webpackJsonp([3],[
 	                taskModal.serverErrorMessage = '';
 	                taskModal.saving = false;
 	                taskModal.ctaText = $sce.trustAsHtml('Save');
-
+	
 	                $scope.taskModalActive = false;
-
+	
 	                $scope.form.$setPristine();
 	                $scope.form.$setUntouched();
 	            }
@@ -620,9 +674,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 19 */
+/*!********************************************************!*\
+  !*** ./wwwroot/js/directives/boards-list-directive.js ***!
+  \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('boardsList', function () {
 	            return {
@@ -636,9 +693,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 20 */
+/*!*********************************************************!*\
+  !*** ./wwwroot/js/directives/boards-modal-directive.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('boardsModal', function () {
 	            return {
@@ -657,9 +717,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 21 */
+/*!************************************************************!*\
+  !*** ./wwwroot/js/directives/categories-list-directive.js ***!
+  \************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('categoriesList', function () {
 	            return {
@@ -676,9 +739,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 22 */
+/*!*************************************************************!*\
+  !*** ./wwwroot/js/directives/categories-modal-directive.js ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('categoriesModal', function () {
 	            return {
@@ -699,9 +765,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 23 */
+/*!*********************************************************!*\
+  !*** ./wwwroot/js/directives/single-board-directive.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('singleBoard', function () {
 	            return {
@@ -719,9 +788,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 24 */
+/*!**************************************************!*\
+  !*** ./wwwroot/js/directives/phase-directive.js ***!
+  \**************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('phase', function () {
 	            return {
@@ -741,9 +813,12 @@ webpackJsonp([3],[
 
 /***/ },
 /* 25 */
+/*!*******************************************************!*\
+  !*** ./wwwroot/js/directives/task-modal-directive.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
 	    angular.module('boards-app')
 	        .directive('taskModal', function () {
 	            return {
@@ -764,5 +839,29 @@ webpackJsonp([3],[
 	    ;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
+/***/ },
+/* 26 */
+/*!**********************************************!*\
+  !*** ./wwwroot/js/services/phase-service.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! angular */ 2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (angular) {
+	    angular.module('boards-app')
+	        .service('phaseService', ['$http', '$q', function ($http, $q) {
+	            var phaseService = this;
+	
+	            phaseService.deletePhase = function (phaseId, boardId) {
+	                return $http.delete('/api/boards/' + boardId + '/phases/' + phaseId)
+	                    .catch(function (err) {
+	                        return $q.reject(err.data.exception);
+	                    })
+	                ;
+	            };
+	        }])
+	    ;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
 /***/ }
 ]);
+//# sourceMappingURL=3.script.bundle.js.map

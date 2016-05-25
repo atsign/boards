@@ -1,6 +1,6 @@
 define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
     angular.module('boards-app')
-        .controller('PhaseCtrl', ['$scope', '$element', '$filter', 'taskService', function ($scope, $element, $filter, taskService) {
+        .controller('PhaseCtrl', ['$scope', '$element', '$filter', 'taskService', 'phaseService', function ($scope, $element, $filter, taskService, phaseService) {
             var phaseCtrl = this;
 
             phaseCtrl.item = $scope.item;
@@ -26,6 +26,21 @@ define(['angular', 'lib/sortable.min'], function (angular, Sortable) {
                         alert("There was an issue updating this task's data. Please try again.");
                         $scope.$parent.updateBoardData();
                     })
+                ;
+            };
+
+            phaseCtrl.deletePhase = function (id, name) {
+                if (!window.confirm("Are you sure you want to delete the phase \"" + name + "\"?")) {
+                    return;
+                }
+
+                phaseService.deletePhase(id, phaseCtrl.boardId)
+                    .then(function() {
+                        $scope.$parent.updateBoardData();
+                    })
+                    .catch(function(err) {
+                        alert(err);
+                    });
                 ;
             };
 
