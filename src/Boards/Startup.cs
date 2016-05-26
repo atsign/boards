@@ -81,8 +81,17 @@ namespace Boards
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                loggerFactory.AddDebug(LogLevel.Information);
+            }
+            else
+            {
+                loggerFactory.AddDebug(LogLevel.Error);
+            }
+
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc(config =>
@@ -112,9 +121,10 @@ namespace Boards
                 config.CreateMap<Boards.Models.Task, TaskViewModel>().ReverseMap();
             });
 
-            await seeder.EnsureSeedDataAsync();
-
-            loggerFactory.AddDebug(LogLevel.Information);
+            if (env.IsDevelopment())
+            {
+                await seeder.EnsureSeedDataAsync();
+            }
         }
 
         // Entry point for the application.
