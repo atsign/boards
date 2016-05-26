@@ -1,8 +1,8 @@
 <div class="modal-content">
     <form novalidate name="form">
-        <button class="modal-close" ng-click="taskModal.closeModal()"><i class="fa fa-times"></i></button>
+        <button type="button" class="modal-close" ng-click="taskModal.closeModal()"><i class="fa fa-times"></i></button>
         <h2>{{taskModalTitle}}</h2>
-        <button type="submit"
+        <button type="button"
                 class="delete"
                 ng-if="taskModalMethod == 'update'"
                 ng-click="taskModal.deleteClicked()"
