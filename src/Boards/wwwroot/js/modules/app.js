@@ -1,4 +1,4 @@
-﻿define(['angular'], function (angular) {
+﻿define(['angular', 'modules/templates'], function (angular) {
     var APP = APP || {};
 
     APP.init = function () {
@@ -10,7 +10,7 @@
         require(['modules/menu'], moduleInit);
 
         // Angular app modules
-        angular.module('boards-app', []);
+        angular.module('boards-app', ['templates-main']);
         require([
             'services/boards-service',
             'services/categories-service',
