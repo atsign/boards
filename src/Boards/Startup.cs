@@ -64,7 +64,8 @@ namespace Boards
 
             services.AddMvc(config => {
 #if !DEBUG
-                config.Filters.Add(new RequireHttpsAttribute());
+                // Requiring HTTPS currently leads to a redirect loop on Azure. Disabling this feature for now.
+                // config.Filters.Add(new RequireHttpsAttribute());
 #endif
             })
             .AddJsonOptions(opt => {
@@ -81,11 +82,12 @@ namespace Boards
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, BoardsContextSeedData seeder, ILoggerFactory loggerFactory, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 loggerFactory.AddDebug(LogLevel.Information);
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -123,6 +125,7 @@ namespace Boards
 
             if (env.IsDevelopment())
             {
+                var seeder = serviceProvider.GetService<BoardsContextSeedData>();
                 await seeder.EnsureSeedDataAsync();
             }
         }

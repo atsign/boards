@@ -1,5 +1,5 @@
 {
   "Data": {
-    "BoardsContextConnection": "Server=(localdb)\\ProjectsV12;Database=BoardsDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
+    "BoardsDevContextConnection": "Server=(localdb)\\ProjectsV12;Database=BoardsDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }
